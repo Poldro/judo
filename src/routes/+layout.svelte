@@ -9,7 +9,7 @@
 
 	import Header from '$lib/components/Header/Header.svelte';
 	import Navigation from '$lib/components/Navigation/Navigation.svelte';
-	import Close from '$lib/components/Header/Close.svelte';
+	import Close from '$lib/svg/Close.svelte';
 
 	initializeStores();
 
@@ -25,12 +25,16 @@
 
 <Drawer>
 	<AppBar gap="gap-0" slotTrail="place-content-end gap-0">
-		<svelte:fragment slot="trail"><Close on:click={drawerClose} /></svelte:fragment>
+		<svelte:fragment slot="trail">
+			<button class="btn btn-sm" on:click={drawerClose}>
+				<Close />
+			</button></svelte:fragment
+		>
 	</AppBar>
 	<Navigation />
 </Drawer>
 
-<AppShell slotSidebarLeft="bg-surface-100-800-token w-0 lg:w-64">
+<AppShell slotSidebarLeft="bg-surface-100-800-token w-0 lg:w-64" regionPage="scroll-smooth">
 	<svelte:fragment slot="header">
 		<Header handleClick={drawerOpen} />
 	</svelte:fragment>
@@ -38,7 +42,6 @@
 	<svelte:fragment slot="sidebarLeft">
 		<Navigation />
 	</svelte:fragment>
-
 
 	<!-- Page Route Content -->
 	<slot />
