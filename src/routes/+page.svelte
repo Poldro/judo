@@ -11,7 +11,7 @@
 		</a>
 		
 	{/each}
-	<a class="btn variant-filled w-auto" target="_blank" href="./J_Esami Regionali di Graduazione 2023.pdf">Esami (pdf)</a>
+	<a class="btn variant-filled w-auto" target="_blank" href="./J_Esami Regionali di Graduazione 2023.pdf">Programmi (pdf)</a>
 
 </div>
 </div>
