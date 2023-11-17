@@ -2,8 +2,8 @@
 	import PageContainer from '$lib/components/Container/PageContainer.svelte';
 	import NavigationListNumber from '$lib/components/List/NavigationListNumber.svelte';
 
-	export let data./[program]/$types.js;
-	console.log(data)
+	export let data;
+	
 	$: items = data.exams.exams_programs
 		.sort((a, b) => a.programs_exam_slug.sort - b.programs_exam_slug.sort)
 		.map((i) => ({
