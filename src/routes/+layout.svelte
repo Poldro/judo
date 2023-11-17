@@ -9,6 +9,7 @@
 
 	import Header from '$lib/components/Header/Header.svelte';
 	import Navigation from '$lib/components/Navigation/Navigation.svelte';
+
 	import Close from '$lib/svg/Close.svelte';
 
 	initializeStores();
@@ -21,6 +22,8 @@
 	function drawerClose(): void {
 		drawerStore.close();
 	}
+
+	export let data;
 </script>
 
 <Drawer>
@@ -31,7 +34,7 @@
 			</button></svelte:fragment
 		>
 	</AppBar>
-	<Navigation />
+	<Navigation data={data} {drawerClose} />
 </Drawer>
 
 <AppShell slotSidebarLeft="bg-surface-100-800-token w-0 lg:w-64" regionPage="scroll-smooth">
@@ -40,7 +43,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		<Navigation />
+		<Navigation data={data} {drawerClose} />
 	</svelte:fragment>
 
 	<!-- Page Route Content -->

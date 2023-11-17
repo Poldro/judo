@@ -6,7 +6,7 @@
 
 <div class="logo-cloud grid-cols-1 xl:grid-cols-2 2xl:grid-cols-4 gap-0.5 w-full">
 	{#each items as { title, href }}
-		<a href={href} target="_blank" rel="nofollow noreferrer" class="logo-item">
+		<a href={href} target="_blank" rel="nofollow noreferrer" class="logo-item hover:!variant-soft-surface">
 			<span>{title}</span>
 			<span><BlankLink /></span>
 		</a>
