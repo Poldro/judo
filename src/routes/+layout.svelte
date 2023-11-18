@@ -24,6 +24,23 @@
 	}
 
 	export let data;
+
+	import BackButton from '$lib/components/Navigation/BackButton.svelte';
+	import { page } from '$app/stores';
+
+	function formatTitle(pathSegment: string): string {
+		return pathSegment
+			.replace(/-/g, ' ')
+			.split(' ')
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' ');
+	}
+
+	let titleSegment: string | null = null;
+
+	$: titleSegment = $page.url.pathname.split('/').pop() || null;
+	$: formattedTitle = titleSegment ? formatTitle(titleSegment) : '';
+
 </script>
 
 <Drawer>
@@ -35,6 +52,8 @@
 		>
 	</AppBar>
 	<Navigation data={data} {drawerClose} />
+
+	
 </Drawer>
 
 <AppShell slotSidebarLeft="bg-surface-100-800-token w-0 lg:w-64" regionPage="scroll-smooth">
@@ -47,5 +66,17 @@
 	</svelte:fragment>
 
 	<!-- Page Route Content -->
+	{#if titleSegment}
+	<AppBar>
+		<svelte:fragment slot="lead">
+			<BackButton />
+		</svelte:fragment>
+	
+		<h1 class="h1 text-end lg:text-center">
+			{formattedTitle}
+		</h1>
+	</AppBar>
+	{/if}
+	
 	<slot />
 </AppShell>

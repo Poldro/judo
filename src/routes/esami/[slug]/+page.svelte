@@ -3,7 +3,7 @@
 	import NavigationListNumber from '$lib/components/List/NavigationListNumber.svelte';
 
 	export let data;
-	
+
 	$: items = data.exams.exams_programs
 		.sort((a, b) => a.programs_exam_slug.sort - b.programs_exam_slug.sort)
 		.map((i) => ({
@@ -17,5 +17,5 @@
 		<div class="lg:max-w-2xl w-full">
 			<NavigationListNumber {items} />
 		</div>
-	</div></PageContainer
->
+	</div>
+</PageContainer>

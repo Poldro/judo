@@ -14,7 +14,7 @@
 <!-- Should have used Recursive Mode: <RecursiveTreeView nodes={myTreeViewNodes} /> -->
 <TreeView>
 	{#each data as item}
-		<TreeViewItem >
+		<TreeViewItem>
 			{item.name}
 			<svelte:fragment slot="children">
 				{#each item.categories || [] as category}
@@ -27,7 +27,7 @@
 									<svelte:fragment slot="children">
 										{#each subCategory.techniques || [] as technique}
 											<a href={`/tecniche/${technique.slug}`} on:click={drawerClose}>
-												<TreeViewItem >
+												<TreeViewItem>
 													{technique.name}
 												</TreeViewItem>
 											</a>
