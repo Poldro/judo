@@ -1,31 +1,3 @@
-<script lang="ts">
-  import { page } from '$app/stores'
-
-  $: {
-    if (typeof gtag !== 'undefined') {
-      gtag('config', 'G-PV28XWLV6J', {
-        page_title: document.title,
-        page_path: $page.url.pathname,
-      })
-    }
-  }
-
-
-</script>
-
 <svelte:head>
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=GTM-P2WPCZKM">
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || []
-
-    function gtag() {
-      dataLayer.push(arguments)
-    }
-
-    gtag('js', new Date())
-    gtag('config', 'G-PV28XWLV6J')
-  </script>
+  <script async src="https://analytics.eu.umami.is/script.js" data-website-id="5109ace0-7dd6-410a-9cf2-90e523d772f4"></script>
 </svelte:head>
