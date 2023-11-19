@@ -24,8 +24,6 @@
 	}
 
 	export let data;
-	export let titleMetadata: string;
-	export let descriptionMetadata: string;
 
 	import BackButton from '$lib/components/Navigation/BackButton.svelte';
 	import { page } from '$app/stores';
@@ -43,7 +41,6 @@
 
 	$: titleSegment = $page.url.pathname.split('/').pop() || null;
 	$: formattedTitle = titleSegment ? formatTitle(titleSegment) : '';
-
 </script>
 
 <Analytics />

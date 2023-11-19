@@ -1,43 +1,56 @@
-<script lang='ts'>
-	import Twitter from "./Twitter.svelte";
+<script>
+	import defaultOgImage from '$lib/assets/jigoro-kano.jpg';
+	import OpenGraph from './OpenGraph.svelte';
+	import Twitter from './Twitter.svelte';
 
-   
-    const { author, siteLanguage, siteTitle, siteUrl } = website;
-   
-    export let data;
+	export let data;
+	console.log(data.globals)
 
-    export let article = false;
-    export let metadescription;
-    export let slug;
-    export let timeToRead = 0;
-    export let title;
-    export let twitterImage = {
-      url:
-        'https://rodneylab-climate-starter.imgix.net/home-twitter.jpg?ixlib=js-3.2.0&w=800&h=418&s=1b08b7276d34486234a4e2c1ccb49a74',
-      alt:
-        'picture of a person with long, curly hair, wearing a red had taking a picture with an analogue camera',
-    };
-   
-    const pageTitle = `${siteTitle} | ${title}`;
-    const twitterProps = {
-      article,
-      author,
-      twitterUsername: import.meta.env.VITE_TWITTER_USERNAME,
-      image: twitterImage,
-      metadescription,
-      pageTitle,
-      timeToRead,
-      url: `${siteUrl}/${slug}`,
-    };
-  </script>
-   
-  <svelte:head>
-    <title>{pageTitle}</title>
-    <meta name="description" content={metadescription} />
-    <meta
-      name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
-    <html lang={siteLanguage} />
-  </svelte:head>
-  <Twitter {...twitterProps} />
+	const { author, siteLanguage, siteTitle, siteUrl, twitterUsername } = data?.globals;
+
+	/**
+	 * @type {any}
+	 */
+	export let metadescription;
+	export let slug;
+	export let title;
+
+	const defaultAlt = 'Mezzo busto di Jigoro Kano, fondatore del Judo.';
+
+	export let featuredImage = {
+		url: defaultOgImage,
+		alt: defaultAlt,
+		width: 672,
+		height: 448,
+		caption: 'Jigoro Kano'
+	};
+
+	const pageTitle = `${siteTitle} | ${title}`;
+	const url = `${siteUrl}/${slug}`;
+	const openGraphProps = {
+		image: featuredImage,
+		metadescription,
+		siteLanguage,
+		pageTitle,
+		siteTitle,
+		url
+	};
+
+	const twitterProps = {
+		author,
+		twitterUsername,
+		image: featuredImage
+	};
+</script>
+
+<svelte:head>
+	<title>{pageTitle}</title>
+	<meta name="description" content={metadescription} />
+	<meta
+		name="robots"
+		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+	/>
+	<link rel="canonical" href={url} />
+</svelte:head>
+<Twitter {...twitterProps} />
+<OpenGraph {...openGraphProps} />

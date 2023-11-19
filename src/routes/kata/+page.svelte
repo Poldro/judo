@@ -5,11 +5,11 @@
 </script>
 
 <PageContainer>
-	<div class="max-w-xl w-full space-y-10">
+	<div class="max-w-4xl w-full space-y-10 grid grid-cols-2 gap-6">
 		{#each data.katas as kata}
-			<a class="block card card-hover p-4 text-center space-y-4" href="kata/{kata.slug}">
+			<a class="flex flex-col card card-hover p-4 text-center space-y-4" href="kata/{kata.slug}">
 				<h3 class="h3">{kata.name}</h3>
-				<p>{kata.description}</p>
+				<p class='flex-1'>{kata.description}</p>
 			</a>
 		{/each}
 	</div>

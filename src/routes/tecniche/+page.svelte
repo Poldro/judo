@@ -4,6 +4,7 @@
 	import DiagramTechniques from '$lib/components/Diagram/DiagramTechniques.svelte';
 	import NavigationList from '$lib/components/List/NavigationListNumber.svelte';
 	import Search from '$lib/components/Search/Search.svelte';
+	/** @type {import('./$types').LayouServerData} */
 
 	$: techniques = $page.data.techniques;
 
