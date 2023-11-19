@@ -18,10 +18,14 @@ export const load: LayoutServerLoad = async () => {
         fields: ['slug', 'name', 'description']
     }))
 
-    if (!techniques || !exams || !katas) {
+    const globals = await directus.request(readItems('global', {
+        fields: ['*']
+    }))
+
+    if (!techniques || !exams || !katas || !globals) {
         throw error(500, 'Something happened');
     }
     return {
-        techniques, exams, katas
+        techniques, exams, katas, globals
     };
 };

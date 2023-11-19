@@ -9,7 +9,7 @@
 	<ul>
 		{#each items as { title, href, blank }, i}
 			<li class="flex items-center">
-				<a {href} class="w-full" target={blank ? '_blank' : ''}>
+				<a {href} class="w-full  hover:!variant-soft-surface" target={blank ? '_blank' : ''}>
 					<span class="badge variant-soft-primary w-6 h-6 flex-shrink-0">{i + 1}</span>
 					<span class="flex-1 whitespace-normal">{title}</span>
 					<span>

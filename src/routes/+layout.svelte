@@ -24,9 +24,12 @@
 	}
 
 	export let data;
+	export let titleMetadata: string;
+	export let descriptionMetadata: string;
 
 	import BackButton from '$lib/components/Navigation/BackButton.svelte';
 	import { page } from '$app/stores';
+	import Analytics from '$lib/components/Analytics/Analytics.svelte';
 
 	function formatTitle(pathSegment: string): string {
 		return pathSegment
@@ -43,6 +46,7 @@
 
 </script>
 
+<Analytics />
 <Drawer>
 	<AppBar gap="gap-0" slotTrail="place-content-end gap-0">
 		<svelte:fragment slot="trail">
