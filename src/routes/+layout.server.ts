@@ -14,10 +14,10 @@ export const load: LayoutServerLoad = async () => {
     }))
 
     const katas = await directus.request(readItems('kata', {
-        fields: ['slug', 'name']
+        sort: ['sort'],
+        fields: ['slug', 'name', 'description']
     }))
 
-    console.log(techniques, exams, katas)
     if (!techniques || !exams || !katas) {
         throw error(500, 'Something happened');
     }

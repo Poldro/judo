@@ -1,21 +1,16 @@
 <script lang="ts">
 	import PageContainer from '$lib/components/Container/PageContainer.svelte';
-	import NavigationListNumber from '$lib/components/List/NavigationListNumber.svelte';
 
 	export let data;
 </script>
 
 <PageContainer>
-	<div class="max-w-4xl w-full">
+	<div class="max-w-xl w-full space-y-10">
 		{#each data.katas as kata}
-			<NavigationListNumber
-				items={[
-					{
-						title: kata.name,
-						href: `/kata/${kata.slug}`
-					}
-				]}
-			/>
+			<a class="block card card-hover p-4 text-center space-y-4" href="kata/{kata.slug}">
+				<h3 class="h3">{kata.name}</h3>
+				<p>{kata.description}</p>
+			</a>
 		{/each}
 	</div>
 </PageContainer>

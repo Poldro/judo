@@ -6,7 +6,7 @@
 </script>
 
 <PageContainer>
-	<div class="max-w-lg flex flex-col justify-between w-full space-y-10">
+	<div class="max-w-xl flex flex-col justify-between w-full space-y-10 ">
 	
 
 		{#each data.exams as { name, slug }}

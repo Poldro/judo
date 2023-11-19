@@ -13,9 +13,7 @@
 </script>
 
 <PageContainer>
-	<div class="flex justify-center mx-4">
-		<div class="lg:max-w-2xl w-full">
-			<NavigationListNumber {items} />
-		</div>
+	<div class="card p-4 max-w-xl w-full">
+		<NavigationListNumber {items} />
 	</div>
 </PageContainer>

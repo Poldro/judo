@@ -10,9 +10,9 @@
 			<LogoClouds items= {links_utili} />
 			</div>
 		<div class="max-w-4xl flex flex-col items-center">
-			<div class="card p-4 lg:p-6 sm:max-w-xs w-full">
+		<!-- 	<div class="card p-4 lg:p-6 sm:max-w-xs w-full">
 				<TableOfContents />
-			</div>
+			</div> -->
 			<div use:tocCrawler={{ mode: 'generate' }}>
 				<div class="max-w-3xl text-base leading-7">
 					<h2 class="text-center h2 my-16" data-toc-ignore>

@@ -1,5 +1,9 @@
 <script lang="ts">
+	import ArrowRight from '$lib/svg/ArrowRight.svelte';
+	import BlankLink from '$lib/svg/BlankLink.svelte';
+
 	export let items: { title: string; href: string; blank?: boolean }[] = [];
+	export let icon: Boolean = false;
 	export let drawerClose: () => void = () => {};
 </script>
 
@@ -13,7 +17,17 @@
 					class="w-full hover:!variant-soft-surface"
 					target={blank ? '_blank' : ''}
 				>
-					<span class="flex-1 whitespace-normal p-2">{title}</span>
+					<span class="flex-1 whitespace-normal">{title}</span>
+
+					{#if icon}
+						<span>
+							{#if blank}
+								<BlankLink />
+							{:else}
+								<ArrowRight />
+							{/if}
+						</span>
+					{/if}
 				</a>
 			</li>
 		{/each}

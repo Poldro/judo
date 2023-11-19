@@ -6,7 +6,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params }) => {
     const exams = await directus.request(readItem('exams', params.slug, {
-        fields: ['slug', 'name', {exams_programs: [{programs_exam_slug:[ 'name', 'slug', 'sort' ]}]}],
+        fields: ['slug', 'name', 'description', {exams_programs: [{programs_exam_slug:[ 'name', 'slug', 'sort' ]}]}],
     }))
 
     if (exams.errors) {

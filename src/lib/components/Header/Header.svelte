@@ -12,7 +12,7 @@
 		<button class="lg:hidden btn btn-sm mr-4" on:click={handleClick}>
 			<Hamburger />
 		</button>
-		<a href="/"><strong class="text-xl uppercase">Judo</strong></a>
+		<a href="/"><strong class="text-xl uppercase">🥋 Judo​</strong></a>
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
 		<LightSwitch />
