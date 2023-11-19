@@ -70,7 +70,6 @@
 
 	const flavorOptions: AutocompleteOption<string>[] = transformTechniquesToOptions(data);
 
-	console.log(flavorOptions, data);
 	let inputPopup: string = '';
 
 	let popupSettings: PopupSettings = {

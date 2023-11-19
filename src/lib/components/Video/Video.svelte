@@ -6,6 +6,8 @@
 	export let startTime: number | null = 0;
 	export let muted: boolean = true;
 
+	let isLoading: boolean = false;
+
 	const plyrOptions: Plyr.Options = {
 		muted,
 		clickToPlay: true,
@@ -17,8 +19,10 @@
 	let started = false;
 
 	function initializePlayer() {
+		isLoading = true;
 		player = new Plyr('#player', plyrOptions);
 		player.on('ready', () => {
+			isLoading = false;
 			player.on('playing', () => {
 				if (!started && startTime !== null) {
 					started = true;
@@ -36,7 +40,6 @@
 		player?.destroy();
 	});
 
-	$: console.log(videoId);
 </script>
 
 <svelte:head>
@@ -51,4 +54,5 @@
 		data-plyr-provider="youtube"
 		data-plyr-embed-id={videoId}
 	/>
+	
 </div>

@@ -1,12 +1,27 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/SEO/index.svelte';
 	import PageContainer from '$lib/components/Container/PageContainer.svelte';
 	import DiagramTechniques from '$lib/components/Diagram/DiagramTechniques.svelte';
 	import NavigationList from '$lib/components/List/NavigationListNumber.svelte';
 	import Search from '$lib/components/Search/Search.svelte';
 	/** @type {import('./$types').LayouServerData} */
+	export let data;
+	
+	let title = 'Tecniche';
+	let metadescription = `
+	Nage-waza (投げ技): Tecniche di Lancio e Katame-waza (固技): Tecniche di Controllo.
+	Tutte le tecniche ufficiali della International Judo Federation (IJF).
+	`;
 
-	$: techniques = $page.data.techniques;
+	const seoProps = {
+		data: data,
+		title,
+		slug: $page.url.pathname,
+		metadescription
+	};
+
+	$: techniques = data.techniques;
 
 	let selectedCategory = null;
 	let filteredCategory = { techniques: [] };
@@ -42,6 +57,7 @@
 			: [];
 </script>
 
+<Seo {...seoProps} />
 <PageContainer>
 	<Search data={techniques} />
 

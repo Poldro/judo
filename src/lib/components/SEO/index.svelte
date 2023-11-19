@@ -4,8 +4,8 @@
 	import Twitter from './Twitter.svelte';
 
 	export let data;
-	console.log(data.globals)
 
+	console.log(data.globals)
 	const { author, siteLanguage, siteTitle, siteUrl, twitterUsername } = data?.globals;
 
 	/**
