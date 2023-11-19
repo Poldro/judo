@@ -3,7 +3,7 @@
 
   $: {
     if (typeof gtag !== 'undefined') {
-      gtag('config', 'GTM-P2WPCZKM', {
+      gtag('config', 'G-PV28XWLV6J', {
         page_title: document.title,
         page_path: $page.url.pathname,
       })
@@ -26,6 +26,6 @@
     }
 
     gtag('js', new Date())
-    gtag('config', 'GTM-P2WPCZKM')
+    gtag('config', 'G-PV28XWLV6J')
   </script>
 </svelte:head>
