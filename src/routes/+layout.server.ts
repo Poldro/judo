@@ -15,7 +15,7 @@ export const load: LayoutServerLoad = async () => {
 
     const katas = await directus.request(readItems('kata', {
         sort: ['sort'],
-        fields: ['slug', 'name', 'description']
+        fields: ['slug', 'name', 'traduction_name', 'description']
     }))
 
     const globals = await directus.request(readItems('global', {

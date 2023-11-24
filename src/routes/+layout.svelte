@@ -66,18 +66,6 @@
 		<Navigation data={data} {drawerClose} />
 	</svelte:fragment>
 
-	<!-- Page Route Content -->
-	{#if titleSegment}
-	<AppBar>
-		<svelte:fragment slot="lead">
-			<BackButton />
-		</svelte:fragment>
-	
-		<h1 class="h1 text-end lg:text-center">
-			{formattedTitle}
-		</h1>
-	</AppBar>
-	{/if}
 	
 	<slot />
 </AppShell>
