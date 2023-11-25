@@ -52,9 +52,7 @@
 			</button></svelte:fragment
 		>
 	</AppBar>
-	<Navigation data={data} {drawerClose} />
-
-	
+	<Navigation {data} {drawerClose} />
 </Drawer>
 
 <AppShell slotSidebarLeft="bg-surface-100-800-token w-0 lg:w-64" regionPage="scroll-smooth">
@@ -63,9 +61,8 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		<Navigation data={data} {drawerClose} />
+		<Navigation {data} {drawerClose} />
 	</svelte:fragment>
 
-	
 	<slot />
 </AppShell>

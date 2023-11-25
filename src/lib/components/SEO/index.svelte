@@ -33,10 +33,12 @@
 		url: `${siteUrl}/${slug}`
 	};
 
+  const { url, alt } = featuredImage;
+  
 	const twitterProps = {
 		author,
 		twitterUsername,
-		image: featuredImage
+		image: {url, alt}
 	};
 </script>
 
