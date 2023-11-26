@@ -3,12 +3,12 @@
 	import Seo from '$lib/components/SEO/index.svelte';
 	import PageContainer from '$lib/components/Container/PageContainer.svelte';
 	import DiagramTechniques from '$lib/components/Diagram/DiagramTechniques.svelte';
-	import NavigationList from '$lib/components/List/NavigationListNumber.svelte';
+	import NavigationList from '$lib/components/List/NavigationList.svelte';
 	import Search from '$lib/components/Search/Search.svelte';
 	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
 
 	export let data;
-	
+
 	let title = 'Tecniche';
 	let metadescription = `
 	Nage-waza (投げ技): Tecniche di Lancio e Katame-waza (固技): Tecniche di Controllo.
@@ -59,7 +59,7 @@
 </script>
 
 <Seo {...seoProps} />
-<HeaderPages title={title} />
+<HeaderPages {title} />
 
 <PageContainer>
 	<Search data={techniques} />
@@ -74,7 +74,7 @@
 			{#if filteredCategory.techniques?.length > 0}
 				<div class="grid lg:grid-cols-2 gap-4">
 					<div class="block card p-4">
-						<NavigationList {items} />
+						<NavigationList icon {items} />
 					</div>
 				</div>
 			{/if}

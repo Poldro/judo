@@ -5,15 +5,22 @@ import type { PageServerLoad } from "./$types";
 
 
 export const load: PageServerLoad = async ({ params }) => {
-    const exams = await directus.request(readItem('exams', params.slug, {
-        fields: ['slug', 'name', 'description', {exams_programs: [{programs_exam_slug:[ 'name', 'slug', 'sort' ]}]}],
+    const programs = await directus.request(readItem('programs_exam', params.static, {
+      /*   filter: {
+            isDynamic: {
+                _eq: false
+            }
+        } */
+        fields: ['*.*.*']
     }))
 
-    if (exams.errors) {
+    if (programs.errors) {
         throw error(404, 'Not found here');
     }
 
+
+    console.log(programs)
     return {
-        exams
+        programs
     };
 }; 

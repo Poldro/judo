@@ -7,7 +7,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ params }) => {
     const examTechniques = await directus.request(readItems('techniques', {
         filter: {
-            exam_id: { _eq: params.slug }
+            exam_id: { _eq: params.esami }
         },
         fields: ['slug']
     }))

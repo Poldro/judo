@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
     const examKatas = await directus.request(readItems('kata', {
         sort: ['sort'],
         filter: {
-            exam_id: { _eq: params.slug }
+            exam_id: { _eq: params.esami }
         },
         fields: ['slug', 'name', 'description'],
     }))
