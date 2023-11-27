@@ -15,6 +15,8 @@
 		slug: $page.url.pathname,
 		metadescription
 	};
+
+
 </script>
 
 <Seo {...seoProps} />
@@ -25,7 +27,7 @@
 		{#each data.katas as kata}
 			<a class="flex flex-col card card-hover p-4 text-center space-y-4" href="kata/{kata.slug}">
 				<h3 class="h3">{kata.name} ({kata.traduction_name})</h3>
-				<p class="flex-1">{kata.description}</p>
+				<div class="flex-1 text-left whitespace-pre-line ">{ kata.description}</div>
 			</a>
 		{/each}
 	</div>

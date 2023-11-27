@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
 	import Download from '$lib/svg/Download.svelte';
+	import LogoClouds from '$lib/components/List/LogoClouds.svelte';
 
 	export let data;
 	let title: string;
@@ -23,6 +24,12 @@
 		slug: $page.url.pathname,
 		metadescription
 	};
+
+console.log(data.kata)
+/* 	$: urls = data.kata.urls.map((i) => ({
+		title: i.url_id.name,
+		href: i.url_id.url
+	})); */
 </script>
 
 <Seo {...seoProps} />
@@ -37,11 +44,14 @@
 			{/each}
 		{/if}
 	</div>
+
 	<div class="max-w-4xl w-full card p-4 space-y-10 flex flex-col justify-center items-center">
 		<div class="max-w-xl space-y-6">
 			<h3 class="h3 font-semibold">{title} - {data.kata.traduction_name}</h3>
 
-			{@html $page.data.kata.description}
+		<!-- 	{#if urls.length > 0}<LogoClouds items={urls} />{/if} -->
+
+			{@html $page.data.kata.content}
 			<div class="w-full flex justify-center">
 				{#if data.kata.pdf_url}
 					<a href={data.kata.pdf_url} type="button" class="btn variant-filled">

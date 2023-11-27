@@ -21,20 +21,21 @@
 		slug: $page.url.pathname,
 		metadescription
 	};
+
+	let description;
+	$: description = data.description.exams_programs.filter((i) => i.programs_exam_slug === 'kata');
 </script>
 
 <Seo {...seoProps} />
 <HeaderPages {title} />
 <PageContainer>
 	<div class="max-w-xl w-full">
-		<!--   <h2 class='h2'></h2> -->
 		<div class="card p-4 space-y-6">
-			<p>{data.programKata.description}</p>
-			<div class="flex justify-center">
-				<div class="max-w-sm w-full">
+				<p>{description[0].description_exam}</p>
+
 					<NavigationList items={navigationItems} icon />
-				</div>
-			</div>
+
+	
 		</div>
-	</div></PageContainer
->
+	</div>
+</PageContainer>

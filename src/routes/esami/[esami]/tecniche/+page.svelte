@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import PageContainer from '$lib/components/Container/PageContainer.svelte';
 	import NavigationList from '$lib/components/List/NavigationList.svelte';
-
+	import Seo from '$lib/components/SEO/index.svelte';
+	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
+	
 	export let data;
 
 	function filterTechniques(techniques, slugs) {
@@ -49,8 +52,24 @@
 	// Usage
 	const slugs = data.examTechniques.map((et) => et.slug);
 	const filteredData = filterTechniques(data.techniques, slugs);
+
+	let title = 'Tecniche';
+	let metaTitle = 'Programma esame tecniche Judo';
+	let metadescription = 'Programma esame tecniche Judo Italia';
+	const seoProps = {
+		data,
+		title: metaTitle,
+		slug: $page.url.pathname,
+		metadescription
+	};
+
+	let desc
+
+
 </script>
 
+<Seo {...seoProps} />
+<HeaderPages {title} />
 <PageContainer>
 	<div class="w-full max-w-4xl space-y-6">
 		{#each filteredData as division}

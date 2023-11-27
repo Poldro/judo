@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ params }) => {
 			filter: {
 				exam_id: { _eq: params.esami }
 			},
-			fields: ['slug', 'name', 'description']
+			fields: ['slug', 'name']
 		})
 	);
 
@@ -20,12 +20,19 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 	);
 
+	const description = await directus.request(
+		readItem('exams', params.esami, {
+			fields: [{exams_programs: ['*']}]
+		})
+	)
+
 	if (examKatas.errors) {
 		throw error(404, 'Not found here');
 	}
 
 	return {
 		examKatas,
-		programKata
+		programKata,
+		description
 	};
 };

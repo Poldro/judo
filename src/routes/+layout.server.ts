@@ -4,7 +4,7 @@ import type { LayoutServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 
 
-export const load: LayoutServerLoad = async () => {
+export const load: LayoutServerLoad = async ({ url }) => {
     const techniques = await directus.request(readItems('techniques_divisions', {
         fields: ['id', 'name', 'description', { categories: ['id', 'name', 'description', { sub_categories: ['id', 'name', 'description', { techniques: ['slug', 'name', 'jpn_name'] }] }, { techniques: ['slug', 'name', 'jpn_name'] }] }]
     }))
@@ -26,6 +26,6 @@ export const load: LayoutServerLoad = async () => {
         throw error(500, 'Something happened');
     }
     return {
-        techniques, exams, katas, globals
+        techniques, exams, katas, globals, currentPath: url.pathname,
     };
 };

@@ -17,7 +17,8 @@
 			href: `/esami/${data.exams.slug}/${i.programs_exam_slug.slug}` // assuming programs_exam_slug has a 'slug' property
 		}));
 
-	let title = data.exams.name;
+	let title: string;
+	$: title= data.exams.name;
 	let metaTitle = 'Programma esame tecniche ' + title + ' Judo';
 	let metadescription = 'Programma tecniche ' + title + ' Judo Italia';
 	const seoProps = {

@@ -36,7 +36,6 @@
 	</div>
 	<div class="max-w-4xl flex flex-col items-center">
 		{@html data.programs.content}
-
 		<div />
 	</div>
 </PageContainer>

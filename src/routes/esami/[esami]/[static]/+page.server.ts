@@ -18,8 +18,6 @@ export const load: PageServerLoad = async ({ params }) => {
         throw error(404, 'Not found here');
     }
 
-
-    console.log(programs)
     return {
         programs
     };

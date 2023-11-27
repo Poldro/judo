@@ -6,7 +6,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params }) => {
     const kata = await directus.request(readItem('kata', params.slug, {
-        fields: ['*', {techniques: ['name', 'slug']}, {videos: [{video_id: ['url_yt', 'name', 'alt']}]}]
+        fields: ['*',{urls: [{url_id: ['*']}]}, {techniques: ['name', 'slug']}, {videos: [{video_id: ['url_yt', 'name', 'alt']}]}]
     }))
 
     if (kata.errors) {

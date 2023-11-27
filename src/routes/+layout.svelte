@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-
+	import { fly } from 'svelte/transition';
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup, initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
@@ -11,6 +11,12 @@
 	import Navigation from '$lib/components/Navigation/Navigation.svelte';
 
 	import Close from '$lib/svg/Close.svelte';
+
+	export let data;
+
+	import { page } from '$app/stores';
+	import Analytics from '$lib/components/Analytics/Analytics.svelte';
+	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
 
 	initializeStores();
 
@@ -23,12 +29,6 @@
 		drawerStore.close();
 	}
 
-	export let data;
-
-	import BackButton from '$lib/components/Navigation/BackButton.svelte';
-	import { page } from '$app/stores';
-	import Analytics from '$lib/components/Analytics/Analytics.svelte';
-
 	function formatTitle(pathSegment: string): string {
 		return pathSegment
 			.replace(/-/g, ' ')
@@ -37,10 +37,11 @@
 			.join(' ');
 	}
 
-	let titleSegment: string | null = null;
+	/* 	let titleSegment: string | null = null;
 
 	$: titleSegment = $page.url.pathname.split('/').pop() || null;
 	$: formattedTitle = titleSegment ? formatTitle(titleSegment) : '';
+ */
 </script>
 
 <Analytics />
