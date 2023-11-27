@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params }) => {
                 _eq: false
             }
         } */
-        fields: ['*.*.*']
+        fields: ['*', {urls: [{url_id: ['*']}]}]
     }))
 
     if (programs.errors) {
