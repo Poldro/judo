@@ -54,7 +54,7 @@ console.log(data.kata)
 			{@html $page.data.kata.content}
 			<div class="w-full flex justify-center">
 				{#if data.kata.pdf_url}
-					<a href={data.kata.pdf_url} type="button" class="btn variant-filled">
+					<a href={data.kata.pdf_url} target='_blank' type="button" class="btn variant-filled">
 						<span class="flex-auto">Download pdf</span>
 
 						<span class="badge"> <Download /></span>
