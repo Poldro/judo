@@ -18,16 +18,18 @@
 			f.parentNode.insertBefore(j, f);
 		})(window, document, 'script', 'dataLayer', 'GTM-P2WPCZKM');
 	</script>
-	<!-- End Google Tag Manager -->
-</svelte:head>
+
 
 <!-- Google Tag Manager (noscript) -->
 <noscript
-	><iframe
-		src="https://www.googletagmanager.com/ns.html?id=GTM-P2WPCZKM"
-		height="0"
-		width="0"
-		style="display:none;visibility:hidden"
-	/></noscript
+><iframe
+	src="https://www.googletagmanager.com/ns.html?id=GTM-P2WPCZKM"
+	height="0"
+	width="0"
+	style="display:none;visibility:hidden"
+/></noscript
 >
 <!-- End Google Tag Manager (noscript) -->
+	<!-- End Google Tag Manager -->
+</svelte:head>
+
