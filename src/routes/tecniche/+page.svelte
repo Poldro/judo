@@ -27,6 +27,15 @@
 	let selectedCategory = null;
 	let filteredCategory = { techniques: [] };
 
+	function chunkArray(array, size) {
+		let result = [];
+		for (let i = 0; i < array.length; i += size) {
+			let chunk = array.slice(i, i + size);
+			result.push(chunk);
+		}
+		return result;
+	}
+
 	function findCategory(categories, categoryName) {
 		for (let category of categories) {
 			if (category.name.toLowerCase() === categoryName) {
@@ -56,6 +65,8 @@
 					href: `/tecniche/${technique.slug}`
 			  }))
 			: [];
+
+	$: chunkedItems = chunkArray(items, 6);
 </script>
 
 <Seo {...seoProps} />
@@ -71,13 +82,13 @@
 				<h2 class="h2 text-primary-500 uppercase">{filteredCategory.name}</h2>
 				<p>{filteredCategory.description || ''}</p>
 			</div>
-			{#if filteredCategory.techniques?.length > 0}
-				<div class="grid lg:grid-cols-2 gap-4">
+			<div class="grid lg:grid-cols-2 gap-4">
+				{#each chunkedItems as chunk}
 					<div class="block card p-4">
-						<NavigationList icon {items} />
+						<NavigationList icon items={chunk} />
 					</div>
-				</div>
-			{/if}
+				{/each}
+			</div>
 		</div>
 	{/if}
 </PageContainer>

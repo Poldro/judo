@@ -10,7 +10,7 @@
 	export let data;
 	// Transform data.examKatas into the required format
 
-	let navigationItems = createNavigationLinks(data.examKatas, 'kata');
+	let navigationItems = createNavigationLinks(data.examKatas.katas.map(kata => kata.kata_slug), 'kata');
 
 	let title = 'Kata';
 	let metaTitle = 'Programma esame kata Judo';
@@ -22,8 +22,8 @@
 		metadescription
 	};
 
-	let description;
-	$: description = data.description.exams_programs.filter((i) => i.programs_exam_slug === 'kata');
+	let description: string;
+	$: description = data.examKatas.exams_programs.filter((i) => i.programs_exam_slug === 'kata');
 </script>
 
 <Seo {...seoProps} />
@@ -31,11 +31,9 @@
 <PageContainer>
 	<div class="max-w-xl w-full">
 		<div class="card p-4 space-y-6">
-				<p>{description[0].description_exam}</p>
+			<p>{description[0].description_exam}</p>
 
-					<NavigationList items={navigationItems} icon />
-
-	
+			<NavigationList items={navigationItems} icon />
 		</div>
 	</div>
 </PageContainer>

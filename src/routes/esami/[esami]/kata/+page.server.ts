@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const examKatas = await directus.request(
+/* 	const examKatas = await directus.request(
 		readItems('kata', {
 			sort: ['sort'],
 			filter: {
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ params }) => {
 			},
 			fields: ['slug', 'name']
 		})
-	);
+	); */
 
 	const programKata = await directus.request(
 		readItem('programs_exam', 'kata', {
@@ -20,9 +20,9 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 	);
 
-	const description = await directus.request(
+	const examKatas = await directus.request(
 		readItem('exams', params.esami, {
-			fields: [{exams_programs: ['*']}]
+			fields: [ {katas: [{kata_slug: ['name', 'slug']}]}, {exams_programs: ['*']}]
 		})
 	)
 
@@ -31,8 +31,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	return {
-		examKatas,
 		programKata,
-		description
+		examKatas
 	};
 };

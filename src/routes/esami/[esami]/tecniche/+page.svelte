@@ -50,7 +50,7 @@
 	}
 
 	// Usage
-	const slugs = data.examTechniques.map((et) => et.slug);
+	const slugs = data.examTechniques.techniques.map((et) => et.techniques_slug.slug);
 	const filteredData = filterTechniques(data.techniques, slugs);
 
 	let title = 'Tecniche';
@@ -62,9 +62,6 @@
 		slug: $page.url.pathname,
 		metadescription
 	};
-
-	let desc
-
 
 </script>
 
