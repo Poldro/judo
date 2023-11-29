@@ -63,12 +63,16 @@
 		metadescription
 	};
 
+	let description: string;
+	$: description = data.examTechniques.exams_programs.filter((i) => i.programs_exam_slug === 'tecniche');
+
 </script>
 
 <Seo {...seoProps} />
 <HeaderPages {title} />
 <PageContainer>
 	<div class="w-full max-w-4xl space-y-6">
+		<p>{description[0].description_exam}</p>
 		{#each filteredData as division}
 			<h2 class="h2">{division.name}</h2>
 			<div class="card p-4">

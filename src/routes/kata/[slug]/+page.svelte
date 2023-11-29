@@ -25,7 +25,6 @@
 		metadescription
 	};
 
-console.log(data.kata)
 /* 	$: urls = data.kata.urls.map((i) => ({
 		title: i.url_id.name,
 		href: i.url_id.url

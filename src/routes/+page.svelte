@@ -6,7 +6,7 @@
 	/** @type {import('./$types').LayouServerData} */
 	export let data;
 
-	let title = 'Home';
+	let title = 'Homepage judo Italia';
 
 	const seoProps = {
 		data,

@@ -18,12 +18,21 @@
 		}));
 
 	let title: string;
-	$: title= data.exams.name;
-	let metaTitle = 'Programma esame tecniche ' + title + ' Judo';
-	let metadescription = 'Programma tecniche ' + title + ' Judo Italia';
-	const seoProps = {
+	let metaTitle: string;
+	let metadescription: string;
+	let seoProps;
+
+	$: title = data.exams.name;
+
+	$: metaTitle = 'Programma esame tecniche ' + title + ' Judo';
+
+	$: metadescription = 'Programma esame tecniche ' + title + ' Judo Italia';
+
+	$: console.log(title, metaTitle);
+
+	$: seoProps = {
 		data,
-		title: metaTitle,
+		title,
 		slug: $page.url.pathname,
 		metadescription
 	};
