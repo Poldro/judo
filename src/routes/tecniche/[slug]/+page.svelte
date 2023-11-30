@@ -29,7 +29,7 @@
 <HeaderPages {title} />
 
 <PageContainer>
-	<div class="max-w-4xl w-full space-y-10 flex flex-col justify-center items-center">
+	<div class="max-w-4xl w-full space-y-6 lg:space-y-10 flex flex-col justify-center items-center">
 		{#if videos.length > 0}
 			{#each videos as video}
 				<div class="w-full">
@@ -38,7 +38,7 @@
 			{/each}
 		{/if}
 	</div>
-	<div class="max-w-4xl w-full card p-4 space-y-10 flex flex-col justify-center items-center">
+	<div class="max-w-4xl w-full card p-4 space-y-6 lg:space-y-10 flex flex-col justify-center items-center">
 		<div class="max-w-xl space-y-6">
 			<h3 class="h3 font-semibold">{title} - {data.technique.it_name}</h3>
 

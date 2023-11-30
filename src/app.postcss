@@ -3,6 +3,44 @@
 @tailwind utilities;
 @tailwind variants;
 
+
+
+@font-face {
+	font-family: 'Work Sans';
+	font-weight: 300;
+	src: url('/fonts/WorkSans-Light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	src: url('/fonts/WorkSans-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Work Sans';
+	font-weight: 600;
+	src: url('/fonts/WorkSans-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Work Sans';
+	font-weight: 700;
+	src: url('/fonts/WorkSans-Bold.woff2') format('woff2');
+}
+
+:root [data-theme='crimson'] {
+    --theme-font-family-base: 'Work Sans', sans-serif;
+    --theme-font-family-heading: 'Work Sans', sans-serif;
+}
+                        	
+
 html,
 body {
 	@apply h-full overflow-hidden;

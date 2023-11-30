@@ -7,9 +7,6 @@
 
 	const { author, siteLanguage, siteTitle, siteUrl, twitterUsername } = data?.globals;
 
-	/**
-	 * @type {any}
-	 */
 	export let metadescription: string;
 	export let slug: string;
 	export let title: string;
@@ -33,12 +30,12 @@
 		url: `${siteUrl}/${slug}`
 	};
 
-  const { url, alt } = featuredImage;
-  
+	const { url, alt } = featuredImage;
+
 	const twitterProps = {
 		author,
 		twitterUsername,
-		image: {url, alt}
+		image: { url, alt }
 	};
 </script>
 

@@ -18,7 +18,7 @@
 
 <Seo {...seoProps} />
 <PageContainer>
-	<div class="max-w-lg flex flex-col justify-between w-full space-y-10">
+	<div class="max-w-lg flex flex-col justify-between w-full space-y-6 lg:space-y-10">
 		<a class="block card card-hover p-4 text-center h3 w-full" href="/esami">
 			<section class="p-4">📖 Esami Cintura Nera</section>
 		</a>

@@ -34,7 +34,7 @@
 	<div class="max-w-4xl w-full">
 		<LogoClouds items={urls} />
 	</div>
-	<div class="max-w-4xl flex flex-col items-center">
+	<div class="max-w-2xl flex flex-col items-center">
 		{@html data.programs.content}
 		<div />
 	</div>

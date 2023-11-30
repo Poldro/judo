@@ -25,7 +25,7 @@
 <PageContainer>
 	<div class="max-w-4xl w-full grid lg:grid-cols-2 gap-6">
 		{#each data.katas as kata}
-			<a class="flex flex-col card card-hover p-4 text-center space-y-4" href="kata/{kata.slug}">
+			<a class="flex flex-col card card-hover px-4 py-6 text-center space-y-4" href="kata/{kata.slug}">
 				<h3 class="h3">{kata.name} ({kata.traduction_name})</h3>
 				<div class="flex-1 text-left whitespace-pre-line ">{ kata.description}</div>
 			</a>
