@@ -73,8 +73,8 @@ interface Schema {
     techniques: Technique[];
     global: Global;
     exams: Exam[];
-    programs: Program[];
-    katas: Kata[];
+    programs_exam: Program[];
+    kata: Kata[];
     urls: Url[];
     videos: Video[];
 }
