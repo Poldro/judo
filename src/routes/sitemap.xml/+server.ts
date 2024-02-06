@@ -26,7 +26,6 @@ export async function GET({ setHeaders }) {
         fields: ['slug']
     }))
 
-    console.log(url_programs)
     if (url_techniques.length <= 0) {
         throw new Error('Failed to fetch url_techniques.');
     }
@@ -41,10 +40,14 @@ export async function GET({ setHeaders }) {
     }
 
     function generateExamProgramPaths() {
+        let basePath = 'https://judo.poldro.eu/esami';
         let paths: string[] = [];
         url_exams.forEach(exam => {
+            // Add exam path without specific program
+            paths.push(`${basePath}/${exam.slug}`);
             url_programs.forEach(program => {
-                paths.push(`${exam.slug}/programmi/${program.slug}`);
+                // Add path for each program within an exam
+                paths.push(`${basePath}/${exam.slug}/${program.slug}`);
             });
         });
         return paths;
@@ -77,7 +80,7 @@ ${url_katas.map(item => `
 
 ${examProgramPaths.map(item => `
 <url>
-<loc>${site}/kata/${item}</loc>
+<loc>${item}</loc>
 <changefreq>weekly</changefreq>
 <lastmod>${date}</lastmod>
 </url>
