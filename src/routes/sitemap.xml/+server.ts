@@ -26,6 +26,7 @@ export async function GET({ setHeaders }) {
         fields: ['slug']
     }))
 
+    console.log(url_programs)
     if (url_techniques.length <= 0) {
         throw new Error('Failed to fetch url_techniques.');
     }
@@ -43,7 +44,7 @@ export async function GET({ setHeaders }) {
         let paths: string[] = [];
         url_exams.forEach(exam => {
             url_programs.forEach(program => {
-                paths.push(`${site}/esami/${exam.slug}/programmi/${program.slug}`);
+                paths.push(`${exam.slug}/programmi/${program.slug}`);
             });
         });
         return paths;
@@ -74,7 +75,14 @@ ${url_katas.map(item => `
 </url>
 `).join('')}
 
-${examProgramPaths}
+${examProgramPaths.map(item => `
+<url>
+<loc>${site}/kata/${item}</loc>
+<changefreq>weekly</changefreq>
+<lastmod>${date}</lastmod>
+</url>
+`).join('')}
+
 </urlset>`;
     return new Response(sitemap);
 }
