@@ -10,7 +10,6 @@ export async function GET({ setHeaders }) {
 
     const site = 'https://judo.poldro.eu';
 
-    // Assume directus.request() correctly fetches the data and returns it in a format like [{slug: 'slug1'}, {slug: 'slug2'}]
     const url_techniques = await directus.request(readItems('techniques', {
         fields: ['slug']
     }));
