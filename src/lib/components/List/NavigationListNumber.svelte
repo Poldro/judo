@@ -8,17 +8,13 @@
 <nav class="list-nav w-full">
 	<ul>
 		{#each items as { title, href, blank }, i}
-			<li class="flex items-center">
-				<a {href} class="w-full  hover:!variant-soft-surface" target={blank ? '_blank' : ''}>
-					<span class="badge variant-soft-primary w-6 h-6 flex-shrink-0">{i + 1}</span>
-					<span class="flex-1 whitespace-normal">{title}</span>
-					<span>
-						{#if blank}
-							<BlankLink />
-						{:else}
-							<ArrowRight />
-						{/if}</span
-					>
+			<li>
+				<a {href} class="hover:!variant-soft-surface" target={blank ? '_blank' : ''}>
+					<span class="badge variant-soft-primary shrink-0 w-6 h-6 text-xs">{i + 1}</span>
+					<span class="flex-1 whitespace-normal text-sm">{title}</span>
+					<span class="opacity-40 shrink-0">
+						{#if blank}<BlankLink />{:else}<ArrowRight />{/if}
+					</span>
 				</a>
 			</li>
 		{/each}

@@ -9,23 +9,18 @@
 
 <nav class="list-nav w-full">
 	<ul>
-		{#each items as { title, href, blank }, i}
-			<li class="flex items-center">
+		{#each items as { title, href, blank }}
+			<li>
 				<a
 					{href}
 					on:click={drawerClose}
-					class="w-full hover:!variant-soft-surface"
+					class="hover:!variant-soft-surface"
 					target={blank ? '_blank' : ''}
 				>
-					<span class="flex-1 whitespace-normal">{title}</span>
-
+					<span class="flex-1 whitespace-normal text-sm">{title}</span>
 					{#if icon}
-						<span>
-							{#if blank}
-								<BlankLink />
-							{:else}
-								<ArrowRight />
-							{/if}
+						<span class="opacity-40 shrink-0">
+							{#if blank}<BlankLink />{:else}<ArrowRight />{/if}
 						</span>
 					{/if}
 				</a>

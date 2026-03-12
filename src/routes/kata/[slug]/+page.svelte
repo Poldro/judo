@@ -12,11 +12,15 @@
 	let metadescription: string;
 	let videos: any;
 	let seoProps: any;
+	let jsonLd: string;
+
+	function stripHtml(html: string): string {
+		return html?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() ?? '';
+	}
 
 	$: title = data.kata.name + ' ' + data.kata.jpn_name;
-	$: metadescription = data.kata.description;
+	$: metadescription = stripHtml(data.kata.description);
 	$: videos = data.kata.videos;
-
 
 	$: seoProps = {
 		data: data,
@@ -25,13 +29,24 @@
 		metadescription
 	};
 
-	/* 	$: urls = data.kata.urls.map((i) => ({
-		title: i.url_id.name,
-		href: i.url_id.url
-	})); */
+	$: jsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Article',
+		headline: `${data.kata.name} - Kata Judo`,
+		name: data.kata.name,
+		description: metadescription,
+		inLanguage: 'it',
+		url: `${data.globals?.siteUrl}${$page.url.pathname}`,
+		author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+	});
 </script>
 
 <Seo {...seoProps} />
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+</svelte:head>
+
 <HeaderPages {title} />
 <PageContainer>
 	<div class="max-w-4xl w-full space-y-6 lg:space-y-10 flex flex-col justify-center items-center">
@@ -50,14 +65,11 @@
 		<div class="max-w-xl space-y-6">
 			<h3 class="h3 font-semibold">{title} - {data.kata.traduction_name}</h3>
 
-			<!-- 	{#if urls.length > 0}<LogoClouds items={urls} />{/if} -->
-
-			{@html $page.data.kata.content}
+			<div class="prose">{@html $page.data.kata.content}</div>
 			<div class="w-full flex justify-center">
 				{#if data.kata.pdf_url}
 					<a href={data.kata.pdf_url} target="_blank" type="button" class="btn variant-filled">
 						<span class="flex-auto">Download pdf</span>
-
 						<span class="badge"> <Download /></span>
 					</a>
 				{/if}

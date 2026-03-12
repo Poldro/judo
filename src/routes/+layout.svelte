@@ -16,7 +16,6 @@
 <!-- Mobile drawer (hidden on lg+) -->
 {#if drawerOpen}
 	<div class="fixed inset-0 z-50 lg:hidden">
-		<!-- Backdrop -->
 		<div
 			class="absolute inset-0 bg-black/50"
 			role="button"
@@ -26,7 +25,6 @@
 			onkeydown={(e) => e.key === 'Escape' && (drawerOpen = false)}
 			transition:fade={{ duration: 150 }}
 		></div>
-		<!-- Panel -->
 		<div
 			class="absolute left-0 top-0 h-full w-72 bg-surface-50-950-token flex flex-col overflow-y-auto shadow-xl"
 			transition:fly={{ x: -288, duration: 200 }}
@@ -40,11 +38,9 @@
 <div class="h-screen flex flex-col overflow-hidden">
 	<Header handleClick={() => (drawerOpen = true)} />
 	<div class="flex flex-1 overflow-hidden">
-		<!-- Desktop sidebar -->
 		<aside class="hidden lg:block w-64 bg-surface-50-950-token overflow-y-auto border-r border-surface-300-600-token">
 			<Navigation {data} drawerClose={() => {}} />
 		</aside>
-		<!-- Main content -->
 		<main class="flex-1 overflow-y-auto scroll-smooth">
 			{@render children?.()}
 		</main>

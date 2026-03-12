@@ -33,8 +33,6 @@
 
 	$: metadescription = 'Programma esame tecniche ' + title + ' Judo Italia';
 
-	$: console.log(title, metaTitle);
-
 	$: seoProps = {
 		data,
 		title,
@@ -46,7 +44,7 @@
 <Seo {...seoProps} />
 <HeaderPages {title} />
 <PageContainer>
-	<div class="card p-4 max-w-xl w-full">
+	<div class="card p-4 max-w-xl w-full border border-surface-300-600-token">
 		<NavigationListNumber {items} />
 	</div>
 </PageContainer>

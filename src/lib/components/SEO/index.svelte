@@ -27,7 +27,8 @@
 		siteLanguage,
 		pageTitle: title,
 		siteTitle,
-		url: `${siteUrl}/${slug}`
+		siteUrl,
+		url: `${siteUrl}${slug}`
 	};
 
 	const { url, alt } = featuredImage;
@@ -46,7 +47,7 @@
 		name="robots"
 		content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
 	/>
-	<link rel="canonical" href={`${siteUrl}/${slug}`} />
+	<link rel="canonical" href={`${siteUrl}${slug}`} />
 </svelte:head>
 <Twitter {...twitterProps} />
 <OpenGraph {...openGraphProps} />

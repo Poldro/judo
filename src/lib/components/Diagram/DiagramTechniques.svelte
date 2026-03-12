@@ -29,7 +29,7 @@
 		<style type="text/css">
         .st0{fill: rgba(var(--color-surface-100) / 1);}
         .st1{enable-background:new    ;}
-        .st2{fill: rgba(var(--color-surface-700) / 1)}
+        .st2{fill: rgba(var(--color-surface-900) / 1)}
         .active .st2 {
         fill: rgba(var(--color-primary-500) / 1); /* New color for active state */
     }

@@ -2,91 +2,42 @@ import directus from "$lib/directus";
 import { readItems } from "@directus/sdk";
 import { PUBLIC_SITE_URL } from '$env/static/public';
 
-let date = new Date().toISOString().split('T')[0]
+const date = new Date().toISOString().split('T')[0];
+
+function url(loc: string, priority: string, changefreq = 'weekly') {
+    return `<url><loc>${loc}</loc><changefreq>${changefreq}</changefreq><priority>${priority}</priority><lastmod>${date}</lastmod></url>`;
+}
 
 export async function GET({ setHeaders }) {
-    setHeaders({
-        'Content-Type': 'application/xml'
-    });
+    setHeaders({ 'Content-Type': 'application/xml' });
 
     const site = PUBLIC_SITE_URL;
 
-    const url_techniques = await directus.request(readItems('techniques', {
-        fields: ['slug']
-    }))
+    const [url_techniques, url_katas, url_exams, url_programs] = await Promise.all([
+        directus.request(readItems('techniques', { fields: ['slug'] })),
+        directus.request(readItems('kata', { fields: ['slug'] })),
+        directus.request(readItems('exams', { fields: ['slug'] })),
+        directus.request(readItems('programs_exam', { fields: ['slug'] })),
+    ]);
 
-    const url_katas = await directus.request(readItems('kata', {
-        fields: ['slug']
-    }))
-
-    const url_exams = await directus.request(readItems('exams', {
-        fields: ['slug']
-    }))
-
-    const url_programs = await directus.request(readItems('programs_exam', {
-        fields: ['slug']
-    }))
-
-    if (url_techniques.length <= 0) {
-        throw new Error('Failed to fetch url_techniques.');
-    }
-    if (url_katas.length <= 0) {
-        throw new Error('Failed to fetch url_katas.');
-    }
-    if (url_exams.length <= 0) {
-        throw new Error('Failed to fetch url_exams.');
-    }
-    if (url_programs.length <= 0) {
-        throw new Error('Failed to fetch url_programs.');
-    }
-
-    function generateExamProgramPaths() {
-        let basePath = `${PUBLIC_SITE_URL}/esami`;
-        let paths: string[] = [];
-        url_exams.forEach(exam => {
-            // Add exam path without specific program
-            paths.push(`${basePath}/${exam.slug}`);
-            url_programs.forEach(program => {
-                // Add path for each program within an exam
-                paths.push(`${basePath}/${exam.slug}/${program.slug}`);
-            });
+    const examProgramUrls: string[] = [];
+    url_exams.forEach(exam => {
+        examProgramUrls.push(url(`${site}/esami/${exam.slug}`, '0.7'));
+        url_programs.forEach(program => {
+            examProgramUrls.push(url(`${site}/esami/${exam.slug}/${program.slug}`, '0.6'));
         });
-        return paths;
-    }
-
-    const examProgramPaths = generateExamProgramPaths();
+    });
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>${site}</loc>
-<changefreq>daily</changefreq>
-<priority>0.7</priority>
-</url>
-${url_techniques.map(item => `
-<url>
-<loc>${site}/tecniche/${item.slug}</loc>
-<changefreq>weekly</changefreq>
-<lastmod>${date}</lastmod>
-</url>
-`).join('')}
-
-${url_katas.map(item => `
-<url>
-<loc>${site}/kata/${item.slug}</loc>
-<changefreq>weekly</changefreq>
-<lastmod>${date}</lastmod>
-</url>
-`).join('')}
-
-${examProgramPaths.map(item => `
-<url>
-<loc>${item}</loc>
-<changefreq>weekly</changefreq>
-<lastmod>${date}</lastmod>
-</url>
-`).join('')}
-
+${url(site, '1.0', 'daily')}
+${url(`${site}/tecniche`, '0.9', 'weekly')}
+${url(`${site}/kata`, '0.9', 'weekly')}
+${url(`${site}/esami`, '0.9', 'weekly')}
+${url_techniques.map(i => url(`${site}/tecniche/${i.slug}`, '0.8')).join('\n')}
+${url_katas.map(i => url(`${site}/kata/${i.slug}`, '0.8')).join('\n')}
+${examProgramUrls.join('\n')}
 </urlset>`;
+
     return new Response(sitemap);
 }

@@ -66,25 +66,27 @@
 <HeaderPages {title} />
 <PageContainer>
 	<div class="w-full max-w-4xl space-y-6">
-		<p>{description[0].description_exam}</p>
+		<p class="text-sm opacity-70">{description[0].description_exam}</p>
 		{#each filteredData as division}
-			<h2 class="h2">{division.name}</h2>
-			<div class="card p-4">
-				<div class="grid lg:grid-cols-2 my-4">
-					{#each division.categories as category}
-						{#if category.techniques.length > 0}
-							<div class="space-y-4">
-								<h3 class="h3">{category.name}</h3>
-								<NavigationList
-									icon
-									items={category.techniques.map((technique: { name: string; slug: string }) => ({
-										title: technique.name,
-										href: `/tecniche/${technique.slug}`
-									}))}
-								/>
-							</div>
-						{/if}
-					{/each}
+			<div class="space-y-3">
+				<h2 class="h2">{division.name}</h2>
+				<div class="card border border-surface-300-600-token p-4">
+					<div class="grid lg:grid-cols-2 gap-6">
+						{#each division.categories as category}
+							{#if category.techniques.length > 0}
+								<div class="space-y-2">
+									<p class="text-xs font-semibold uppercase tracking-wider opacity-50">{category.name}</p>
+									<NavigationList
+										icon
+										items={category.techniques.map((technique: { name: string; slug: string }) => ({
+											title: technique.name,
+											href: `/tecniche/${technique.slug}`
+										}))}
+									/>
+								</div>
+							{/if}
+						{/each}
+					</div>
 				</div>
 			</div>
 		{/each}

@@ -22,14 +22,18 @@
 <Seo {...seoProps} />
 <HeaderPages {title} />
 <PageContainer>
-	<div class="max-w-xl flex flex-col justify-between w-full space-y-6 lg:space-y-10">
+	<div class="max-w-md flex flex-col w-full gap-4">
 		{#each data.exams as { name, slug }}
-			<a class="block card card-hover p-4 text-center h3" href="esami/{slug}">
-				<section class="p-4">{name}</section>
+			<a class="block card card-hover bg-surface-100-900-token border border-surface-300-600-token" href="esami/{slug}">
+				<div class="p-5 flex items-center gap-4">
+					<span class="text-3xl shrink-0">🥋</span>
+					<p class="font-semibold text-lg leading-tight">{name}</p>
+					<span class="ml-auto opacity-30 text-lg">›</span>
+				</div>
 			</a>
 		{/each}
 		<a
-			class="btn variant-filled w-auto"
+			class="btn variant-soft w-auto self-start"
 			target="_blank"
 			href="./J_Esami Regionali di Graduazione 2023.pdf">Programmi (pdf)</a
 		>

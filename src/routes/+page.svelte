@@ -18,16 +18,38 @@
 
 <Seo {...seoProps} />
 <PageContainer>
-	<div class="max-w-lg flex flex-col justify-between w-full space-y-6 lg:space-y-10">
-		<a class="block card card-hover p-4 text-center h3 w-full" href="/esami">
-			<section class="p-4">📖 Esami Cintura Nera</section>
+	<div class="max-w-md flex flex-col w-full gap-4">
+		<a class="block card card-hover bg-surface-100-900-token border border-surface-300-600-token" href="/esami">
+			<div class="p-5 flex items-center gap-4">
+				<span class="text-4xl shrink-0">📖</span>
+				<div>
+					<p class="font-semibold text-lg leading-tight">Esami Cintura Nera</p>
+					<p class="text-sm opacity-55 mt-0.5">Programmi, tecniche e requisiti</p>
+				</div>
+				<span class="ml-auto opacity-30 text-lg">›</span>
+			</div>
 		</a>
 
-		<a class="block card card-hover p-4 text-center h3" href="/tecniche">
-			<section class="p-4">🥋 Tecniche</section>
+		<a class="block card card-hover bg-surface-100-900-token border border-surface-300-600-token" href="/tecniche">
+			<div class="p-5 flex items-center gap-4">
+				<span class="text-4xl shrink-0">🥋</span>
+				<div>
+					<p class="font-semibold text-lg leading-tight">Tecniche</p>
+					<p class="text-sm opacity-55 mt-0.5">Nage-waza e Katame-waza IJF</p>
+				</div>
+				<span class="ml-auto opacity-30 text-lg">›</span>
+			</div>
 		</a>
-		<a class="block card card-hover p-4 text-center h3" href="/kata">
-			<section class="p-4">🌊 Kata</section>
+
+		<a class="block card card-hover bg-surface-100-900-token border border-surface-300-600-token" href="/kata">
+			<div class="p-5 flex items-center gap-4">
+				<span class="text-4xl shrink-0">🌊</span>
+				<div>
+					<p class="font-semibold text-lg leading-tight">Kata</p>
+					<p class="text-sm opacity-55 mt-0.5">Le forme codificate del judo</p>
+				</div>
+				<span class="ml-auto opacity-30 text-lg">›</span>
+			</div>
 		</a>
 	</div>
 </PageContainer>
