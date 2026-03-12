@@ -1,108 +1,80 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import {
-		Autocomplete,
-		popup,
-		type AutocompleteOption,
-		type PopupSettings
-	} from '@skeletonlabs/skeleton';
+
 	interface Technique {
 		slug: string;
 		name: string;
 	}
-
 	interface SubCategory {
 		name: string;
-		techniques: Technique[];
+		techniques: Technique[] | null;
 	}
-
 	interface Category {
 		name: string;
-		techniques: Technique[];
-		sub_categories: SubCategory[];
+		techniques: Technique[] | null;
+		sub_categories: SubCategory[] | null;
 	}
-
 	interface TechniqueGroup {
 		name: string;
-		categories: Category[];
+		categories: Category[] | null;
 	}
 
-	interface AutocompleteOption<T> {
-		label: string;
-		value: T;
-		keywords: string;
-	}
+	export let data: TechniqueGroup[];
 
-	export let data: { techniqueGroups: TechniqueGroup[] };
+	let query = '';
+	let showResults = false;
 
-	const transformTechniquesToOptions = (
-		techniqueGroups: TechniqueGroup[]
-	): AutocompleteOption<string>[] => {
-		const options: AutocompleteOption<string>[] = [];
+	$: allTechniques = data.flatMap((group) =>
+		(group.categories ?? []).flatMap((cat) => [
+			...(cat.techniques ?? []).map((t) => ({ ...t, group: group.name, category: cat.name })),
+			...(cat.sub_categories ?? []).flatMap((sub) =>
+				(sub.techniques ?? []).map((t) => ({
+					...t,
+					group: group.name,
+					category: `${cat.name} > ${sub.name}`
+				}))
+			)
+		])
+	);
 
-		techniqueGroups.forEach((techniqueGroup) => {
-			techniqueGroup.categories.forEach((category) => {
-				// Check for techniques directly under category
-				if (category.techniques) {
-					category.techniques.forEach((technique) => {
-						options.push({
-							label: technique.name,
-							value: technique.slug,
-							keywords: `${techniqueGroup.name}, ${category.name}`
-						});
-					});
-				}
-				// Continue with subCategories as before
-				category.sub_categories.forEach((subCategory) => {
-					subCategory.techniques.forEach((technique) => {
-						options.push({
-							label: technique.name,
-							value: technique.slug,
-							keywords: `${techniqueGroup.name}, ${category.name}, ${subCategory.name}`
-						});
-					});
-				});
-			});
-		});
+	$: results =
+		query.length > 1
+			? allTechniques.filter(
+					(t) =>
+						t.name.toLowerCase().includes(query.toLowerCase()) ||
+						t.category.toLowerCase().includes(query.toLowerCase())
+				)
+			: [];
 
-		return options;
-	};
-
-	const flavorOptions: AutocompleteOption<string>[] = transformTechniquesToOptions(data);
-
-	let inputPopup: string = '';
-
-	let popupSettings: PopupSettings = {
-		event: 'focus-click',
-		target: 'popupAutocomplete',
-		placement: 'bottom'
-	};
-	function onPopupSelect(event: CustomEvent<AutocompleteOption<string>>): void {
-		const slug = event.detail.value;
+	function select(slug: string) {
+		query = '';
+		showResults = false;
 		goto(`/tecniche/${slug}`);
 	}
 </script>
 
-<div class="w-full max-w-sm">
+<div class="relative w-full max-w-sm">
 	<input
-		class="input autocomplete p-2"
+		class="w-full px-3 py-2 rounded border border-surface-300-600-token bg-surface-50-950-token text-sm"
 		type="search"
-		name="autocomplete-search"
-		bind:value={inputPopup}
+		bind:value={query}
+		on:focus={() => (showResults = true)}
+		on:blur={() => setTimeout(() => (showResults = false), 150)}
 		placeholder="Es. seoi-nage, te-waza,..."
-		use:popup={popupSettings}
 	/>
-	<div data-popup="popupAutocomplete" class=" w-full max-w-sm max-h-48 overflow-y-auto">
-		{#if inputPopup.length > 0}
-
-		<div class="card w-full p-4 overflow-y-auto" tabindex="-1">
-			<Autocomplete
-				emptyState="Nessun risultato"
-				bind:input={inputPopup}
-				options={flavorOptions}
-				on:selection={onPopupSelect}
-			/>
+	{#if showResults && results.length > 0}
+		<div
+			class="absolute z-50 w-full mt-1 card p-2 max-h-48 overflow-y-auto shadow-lg bg-surface-50-950-token border border-surface-300-600-token"
+		>
+			{#each results as technique}
+				<button
+					class="w-full text-left px-2 py-1.5 rounded text-sm hover:!variant-soft-surface block"
+					on:click={() => select(technique.slug)}
+				>
+					<span class="font-medium">{technique.name}</span>
+					<span class="text-xs opacity-60 ml-1">{technique.category}</span>
+				</button>
+			{/each}
 		</div>
-		{/if}
-	</div>
+	{/if}
 </div>

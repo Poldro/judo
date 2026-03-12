@@ -24,38 +24,38 @@
 
 	$: techniques = data.techniques;
 
-	let selectedCategory = null;
-	let filteredCategory = { techniques: [] };
+	type CategoryResult = { name: string; description?: string; techniques: { name: string; jpn_name: string; slug: string }[] };
+	let selectedCategory: string | null = null;
+	let filteredCategory: CategoryResult = { name: '', techniques: [] };
 
-	function chunkArray(array, size) {
-		let result = [];
+	function chunkArray<T>(array: T[], size: number): T[][] {
+		let result: T[][] = [];
 		for (let i = 0; i < array.length; i += size) {
-			let chunk = array.slice(i, i + size);
-			result.push(chunk);
+			result.push(array.slice(i, i + size));
 		}
 		return result;
 	}
 
-	function findCategory(categories, categoryName) {
+	function findCategory(categories: any[], categoryName: string): CategoryResult | null {
 		for (let category of categories) {
 			if (category.name.toLowerCase() === categoryName) {
 				return category;
 			}
 			if (category.categories && category.categories.length > 0) {
-				let found = findCategory(category.categories, categoryName);
+				const found = findCategory(category.categories, categoryName);
 				if (found) return found;
 			}
 			if (category.sub_categories && category.sub_categories.length > 0) {
-				let found = findCategory(category.sub_categories, categoryName);
+				const found = findCategory(category.sub_categories, categoryName);
 				if (found) return found;
 			}
 		}
 		return null;
 	}
 
-	function handleDiagramClick(event) {
+	function handleDiagramClick(event: CustomEvent<{ clickedItem: string }>) {
 		selectedCategory = event.detail.clickedItem.toLowerCase();
-		filteredCategory = findCategory(techniques, selectedCategory);
+		filteredCategory = findCategory(techniques, selectedCategory) ?? { name: '', techniques: [] };
 	}
 
 	$: items =

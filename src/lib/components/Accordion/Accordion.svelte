@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Accordion, AccordionItem } from "@skeletonlabs/skeleton";
-	
 	export let items: { summary: string; content: string; open?: boolean }[] = [];
 </script>
 
-<Accordion autocollapse>
+<div class="space-y-1">
 	{#each items as { summary, content, open = false }}
-		<AccordionItem {open}>
-			<svelte:fragment slot="summary">{summary}</svelte:fragment>
-            <svelte:fragment slot="content">{@html content}</svelte:fragment>
-		</AccordionItem>
+		<details {open}>
+			<summary class="cursor-pointer px-4 py-2 rounded hover:!variant-soft-surface font-medium">
+				{summary}
+			</summary>
+			<div class="px-4 py-2">{@html content}</div>
+		</details>
 	{/each}
-</Accordion>
+</div>

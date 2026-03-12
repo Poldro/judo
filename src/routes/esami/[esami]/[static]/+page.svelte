@@ -21,9 +21,9 @@
 		metadescription
 	};
 
-	$: urls = data.programs.urls.map((i) => ({
-		title: i.url_id.name,
-		href: i.url_id.url
+	$: urls = (data.programs.urls ?? []).map((i) => ({
+		title: (i.url_id as { name: string; url: string }).name,
+		href: (i.url_id as { name: string; url: string }).url
 	}));
 </script>
 
@@ -36,6 +36,6 @@
 	</div>
 	<div class="max-w-2xl flex flex-col items-center">
 		{@html data.programs.content}
-		<div />
+		<div></div>
 	</div>
 </PageContainer>

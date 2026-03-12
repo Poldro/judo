@@ -7,15 +7,20 @@
 
 	export let data;
 
-	$: items = data.exams.exams_programs
-		.sort(
-			(a: { programs_exam_slug: { sort: number } }, b: { programs_exam_slug: { sort: number } }) =>
-				a.programs_exam_slug.sort - b.programs_exam_slug.sort
-		)
-		.map((i: { programs_exam_slug: { name: any; slug: any } }) => ({
-			title: `${i.programs_exam_slug.name}`, // assuming programs_exam_slug has a 'name' property
-			href: `/esami/${data.exams.slug}/${i.programs_exam_slug.slug}` // assuming programs_exam_slug has a 'slug' property
-		}));
+	type ProgramRef = { sort: number; name: string; slug: string };
+	$: items = (data.exams.exams_programs ?? [])
+		.sort((a, b) => {
+			const aRef = a.programs_exam_slug as ProgramRef;
+			const bRef = b.programs_exam_slug as ProgramRef;
+			return aRef.sort - bRef.sort;
+		})
+		.map((i) => {
+			const ref = i.programs_exam_slug as ProgramRef;
+			return {
+				title: ref.name,
+				href: `/esami/${data.exams.slug}/${ref.slug}`
+			};
+		});
 
 	let title: string;
 	let metaTitle: string;

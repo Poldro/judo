@@ -46,7 +46,7 @@
 			<div class="w-full flex justify-center">
 				<ButtonLink
 					title="International Judo Federation"
-					href={data.technique.ijf_url}
+					href={data.technique.ifj_url}
 					blank={true}
 				/>
 			</div>

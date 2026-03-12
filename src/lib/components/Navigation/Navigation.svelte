@@ -5,12 +5,12 @@
 	export let data;
 	export let drawerClose;
 
-	$: exams = data.exams.map((i) => ({
+	$: exams = data.exams.map((i: { name: string; slug: string }) => ({
 		title: i.name,
 		href: `/esami/${i.slug}`
 	}));
 
-	$: katas = data.katas.map((i) => ({
+	$: katas = data.katas.map((i: { name: string; slug: string }) => ({
 		title: i.name,
 		href: `/kata/${i.slug}`
 	}));

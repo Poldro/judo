@@ -1,6 +1,5 @@
 import directus from '$lib/directus';
 import { readItem, readItems } from '@directus/sdk';
-import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -25,10 +24,6 @@ export const load: PageServerLoad = async ({ params }) => {
 			fields: [ {katas: [{kata_slug: ['name', 'slug']}]}, {exams_programs: ['*']}]
 		})
 	)
-
-	if (examKatas.errors) {
-		throw error(404, 'Not found here');
-	}
 
 	return {
 		programKata,

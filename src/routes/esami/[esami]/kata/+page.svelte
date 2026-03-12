@@ -6,11 +6,14 @@
 	import { createNavigationLinks } from '$lib/utils/createNavigationItems.js';
 	import Seo from '$lib/components/SEO/index.svelte';
 	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
+	import type { Kata, ExamProgram } from '$lib/directus';
 
 	export let data;
-	// Transform data.examKatas into the required format
 
-	let navigationItems = createNavigationLinks(data.examKatas.katas.map(kata => kata.kata_slug), 'kata');
+	let navigationItems = createNavigationLinks(
+		(data.examKatas.katas ?? []).map((kata) => kata.kata_slug as Kata),
+		'kata'
+	);
 
 	let title = 'Kata';
 	let metaTitle = 'Programma esame kata Judo';
@@ -22,8 +25,10 @@
 		metadescription
 	};
 
-	let description: string;
-	$: description = data.examKatas.exams_programs.filter((i) => i.programs_exam_slug === 'kata');
+	let description: ExamProgram[];
+	$: description = (data.examKatas.exams_programs ?? []).filter(
+		(i) => i.programs_exam_slug === 'kata'
+	);
 </script>
 
 <Seo {...seoProps} />

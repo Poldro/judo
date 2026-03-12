@@ -4,53 +4,45 @@
 	import NavigationList from '$lib/components/List/NavigationList.svelte';
 	import Seo from '$lib/components/SEO/index.svelte';
 	import HeaderPages from '$lib/components/Header/HeaderPages.svelte';
-	
+	import type { ExamProgram, ExamTechnique } from '$lib/directus';
+
 	export let data;
 
-	function filterTechniques(techniques, slugs) {
+	type FilteredCategory = { name: string; description?: string; techniques: { slug: string; name: string }[] };
+
+	function filterTechniques(techniques: any[], slugs: string[]) {
 		return techniques
 			.map((tech) => {
-				// Create a new array for categories and sub-categories
-				let allCategories = [];
+				const allCategories: FilteredCategory[] = [];
 
-				tech.categories?.forEach((cat) => {
-					// Filter techniques in categories
-					const filteredTechniques = cat.techniques?.filter((technique) =>
+				tech.categories?.forEach((cat: any) => {
+					const filteredTechniques = cat.techniques?.filter((technique: any) =>
 						slugs.includes(technique.slug)
-					);
+					) ?? [];
 
-					if (filteredTechniques?.length > 0) {
-						allCategories.push({
-							...cat,
-							techniques: filteredTechniques
-						});
+					if (filteredTechniques.length > 0) {
+						allCategories.push({ ...cat, techniques: filteredTechniques });
 					}
 
-					// Flatten sub-categories
-					cat.sub_categories?.forEach((subCat) => {
-						const filteredSubCatTechniques = subCat.techniques?.filter((technique) =>
+					cat.sub_categories?.forEach((subCat: any) => {
+						const filteredSubCatTechniques = subCat.techniques?.filter((technique: any) =>
 							slugs.includes(technique.slug)
-						);
+						) ?? [];
 
-						if (filteredSubCatTechniques?.length > 0) {
-							allCategories.push({
-								name: subCat.name, // Or adjust the name as needed
-								techniques: filteredSubCatTechniques
-							});
+						if (filteredSubCatTechniques.length > 0) {
+							allCategories.push({ name: subCat.name, techniques: filteredSubCatTechniques });
 						}
 					});
 				});
 
-				return {
-					...tech,
-					categories: allCategories
-				};
+				return { ...tech, categories: allCategories };
 			})
-			.filter((tech) => tech.categories?.length > 0);
+			.filter((tech) => tech.categories.length > 0);
 	}
 
-	// Usage
-	const slugs = data.examTechniques.techniques.map((et) => et.techniques_slug.slug);
+	const slugs = (data.examTechniques.techniques ?? []).map(
+		(et) => (et.techniques_slug as ExamTechnique['techniques_slug']).slug
+	);
 	const filteredData = filterTechniques(data.techniques, slugs);
 
 	let title = 'Tecniche';
@@ -63,8 +55,10 @@
 		metadescription
 	};
 
-	let description: string;
-	$: description = data.examTechniques.exams_programs.filter((i) => i.programs_exam_slug === 'tecniche');
+	let description: ExamProgram[];
+	$: description = (data.examTechniques.exams_programs ?? []).filter(
+		(i) => i.programs_exam_slug === 'tecniche'
+	);
 
 </script>
 
@@ -83,7 +77,7 @@
 								<h3 class="h3">{category.name}</h3>
 								<NavigationList
 									icon
-									items={category.techniques.map((technique) => ({
+									items={category.techniques.map((technique: { name: string; slug: string }) => ({
 										title: technique.name,
 										href: `/tecniche/${technique.slug}`
 									}))}

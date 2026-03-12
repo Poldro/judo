@@ -1,5 +1,6 @@
 import directus from "$lib/directus";
 import { readItems } from "@directus/sdk";
+import { PUBLIC_SITE_URL } from '$env/static/public';
 
 let date = new Date().toISOString().split('T')[0]
 
@@ -8,7 +9,7 @@ export async function GET({ setHeaders }) {
         'Content-Type': 'application/xml'
     });
 
-    const site = 'https://judo.poldro.eu';
+    const site = PUBLIC_SITE_URL;
 
     const url_techniques = await directus.request(readItems('techniques', {
         fields: ['slug']
@@ -40,7 +41,7 @@ export async function GET({ setHeaders }) {
     }
 
     function generateExamProgramPaths() {
-        let basePath = 'https://judo.poldro.eu/esami';
+        let basePath = `${PUBLIC_SITE_URL}/esami`;
         let paths: string[] = [];
         url_exams.forEach(exam => {
             // Add exam path without specific program

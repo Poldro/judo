@@ -4,9 +4,10 @@
 	const dispatch = createEventDispatcher();
     export let selectedCategory;
 
-	function handleClick(event) {
+	function handleClick(event: MouseEvent) {
 
-		const clickedItem = event.target.closest('a, [role="button"]').id;
+		const target = (event.target as HTMLElement).closest<HTMLElement>('a, [role="button"]');
+		const clickedItem = target?.id ?? '';
 		dispatch('itemClicked', { clickedItem });
 
 

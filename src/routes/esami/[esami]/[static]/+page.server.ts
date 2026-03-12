@@ -1,6 +1,5 @@
 import directus from "$lib/directus";
 import { readItem } from "@directus/sdk";
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 
@@ -13,10 +12,6 @@ export const load: PageServerLoad = async ({ params }) => {
         } */
         fields: ['*', {urls: [{url_id: ['*']}]}]
     }))
-
-    if (programs.errors) {
-        throw error(404, 'Not found here');
-    }
 
     return {
         programs
