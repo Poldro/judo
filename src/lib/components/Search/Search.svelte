@@ -62,19 +62,23 @@
 		on:blur={() => setTimeout(() => (showResults = false), 150)}
 		placeholder="Es. seoi-nage, te-waza,..."
 	/>
-	{#if showResults && results.length > 0}
+	{#if showResults && query.length > 1}
 		<div
 			class="absolute z-50 w-full mt-1 card p-2 max-h-48 overflow-y-auto shadow-lg bg-surface-50-950-token border border-surface-300-600-token"
 		>
-			{#each results as technique}
-				<button
-					class="w-full text-left px-2 py-1.5 rounded text-sm hover:!variant-soft-surface block"
-					on:click={() => select(technique.slug)}
-				>
-					<span class="font-medium">{technique.name}</span>
-					<span class="text-xs opacity-60 ml-1">{technique.category}</span>
-				</button>
-			{/each}
+			{#if results.length > 0}
+				{#each results as technique}
+					<button
+						class="w-full text-left px-2 py-1.5 rounded text-sm hover:!variant-soft-surface block"
+						on:click={() => select(technique.slug)}
+					>
+						<span class="font-medium">{technique.name}</span>
+						<span class="text-xs opacity-60 ml-1">{technique.category}</span>
+					</button>
+				{/each}
+			{:else}
+				<p class="px-2 py-2 text-sm opacity-50">Nessuna tecnica trovata</p>
+			{/if}
 		</div>
 	{/if}
 </div>

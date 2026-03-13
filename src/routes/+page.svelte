@@ -18,6 +18,11 @@
 
 <Seo {...seoProps} />
 <PageContainer>
+	<div class="max-w-md w-full text-center space-y-1 pt-2">
+		<h1 class="text-2xl font-bold uppercase tracking-wide">Judo</h1>
+		<p class="text-sm opacity-55">Riferimento tecnico per esami di cintura nera, tecniche IJF e kata</p>
+	</div>
+
 	<div class="max-w-md flex flex-col w-full gap-4">
 		<a class="block card card-hover bg-surface-100-900-token border border-surface-300-600-token" href="/esami">
 			<div class="p-5 flex items-center gap-4">

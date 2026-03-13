@@ -59,18 +59,17 @@
 			{/each}
 		{/if}
 	</div>
-	<div class="max-w-4xl w-full card p-4 space-y-6 lg:space-y-10 flex flex-col justify-center items-center">
-		<div class="max-w-xl space-y-6">
-			<h3 class="h3 font-semibold">{title} - {data.technique.it_name}</h3>
-
-			<div class="prose">{@html $page.data.technique.description}</div>
-			<div class="w-full flex justify-center">
+	<div class="max-w-2xl w-full card p-5 lg:p-8 space-y-6">
+		<h3 class="h3 font-semibold">{title}{#if data.technique.it_name} — {data.technique.it_name}{/if}</h3>
+		<div class="prose">{@html $page.data.technique.description}</div>
+		{#if data.technique.ifj_url}
+			<div class="pt-2">
 				<ButtonLink
 					title="International Judo Federation"
 					href={data.technique.ifj_url}
 					blank={true}
 				/>
 			</div>
-		</div>
+		{/if}
 	</div>
 </PageContainer>

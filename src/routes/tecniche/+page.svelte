@@ -30,6 +30,19 @@
 		selectedDivision = techniques[0].name;
 	}
 
+	// Auto-select first available category so the page shows content immediately
+	$: if (currentDivision && !selectedCategory) {
+		for (const cat of currentDivision.categories) {
+			if ((cat.techniques ?? []).length > 0) {
+				selectedCategory = cat.name;
+				break;
+			} else if ((cat.sub_categories ?? []).length > 0) {
+				selectedCategory = cat.sub_categories[0].name;
+				break;
+			}
+		}
+	}
+
 	$: currentDivision = (techniques as Division[])?.find(d => d.name === selectedDivision) ?? null;
 
 	function selectDivision(name: string) {
@@ -106,10 +119,10 @@
 					<!-- Category with sub-categories → group -->
 					<div class="space-y-2">
 						<p class="text-xs font-semibold uppercase tracking-wider opacity-50 px-1">{category.name}</p>
-						<div class="flex flex-wrap gap-2">
+						<div class="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap">
 							{#each subs as sub}
 								<button
-									class="chip px-4 py-2 rounded-lg border text-sm {selectedCategory === sub.name ? 'border-primary-500 bg-primary-500/10 text-primary-500 font-semibold' : 'border-surface-300-600-token !variant-soft-surface'}"
+									class="chip shrink-0 px-4 py-2 rounded-lg border text-sm {selectedCategory === sub.name ? 'border-primary-500 bg-primary-500/10 text-primary-500 font-semibold' : 'border-surface-300-600-token !variant-soft-surface'}"
 									on:click={() => selectCategory(sub.name)}
 								>
 									{sub.name}
@@ -135,13 +148,17 @@
 					<p class="opacity-70 text-sm">{selectedCategoryData.description}</p>
 				{/if}
 			</div>
-			<div class="grid lg:grid-cols-2 gap-4">
-				{#each chunkedItems as chunk}
-					<div class="block card p-4 border border-surface-300-600-token">
-						<NavigationList icon items={chunk} />
-					</div>
-				{/each}
-			</div>
+			{#if items.length > 0}
+				<div class="grid lg:grid-cols-2 gap-4">
+					{#each chunkedItems as chunk}
+						<div class="block card p-4 border border-surface-300-600-token">
+							<NavigationList icon items={chunk} />
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="text-sm opacity-50 text-center py-4">Nessuna tecnica in questa categoria.</p>
+			{/if}
 		</div>
 	{/if}
 </PageContainer>
