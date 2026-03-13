@@ -20,7 +20,7 @@
 
 	$: title = data.technique.name + ' ' + data.technique.jpn_name;
 	$: metadescription = stripHtml(data.technique.description);
-	$: videos = data.technique.videos;
+	$: videos = data.technique.videos ?? [];
 
 	$: seoProps = {
 		data,

@@ -27,16 +27,7 @@
 	src: url('/fonts/WorkSans-Bold.woff2') format('woff2');
 }
 
-/* Adaptive color tokens */
 @theme {
-	--color-surface-50-950: light-dark(var(--color-surface-50), var(--color-surface-950));
-	--color-surface-100-900: light-dark(var(--color-surface-100), var(--color-surface-900));
-	--color-surface-200-800: light-dark(var(--color-surface-200), var(--color-surface-800));
-	--color-surface-300-700: light-dark(var(--color-surface-300), var(--color-surface-700));
-	--color-surface-950-50: light-dark(var(--color-surface-950), var(--color-surface-50));
-	--color-primary-50-950: light-dark(var(--color-primary-50), var(--color-primary-950));
-	--color-primary-100-900: light-dark(var(--color-primary-100), var(--color-primary-900));
-	--color-primary-950-50: light-dark(var(--color-primary-950), var(--color-primary-50));
 	--radius-base: 0.375rem;
 	--radius-container: 0.75rem;
 }
@@ -46,6 +37,27 @@
 	:root {
 		color-scheme: light dark;
 		font-family: 'Work Sans', sans-serif;
+		/* Adaptive color tokens — light mode defaults */
+		--color-surface-50-950: var(--color-surface-50);
+		--color-surface-100-900: var(--color-surface-100);
+		--color-surface-200-800: var(--color-surface-200);
+		--color-surface-300-700: var(--color-surface-300);
+		--color-surface-950-50: var(--color-surface-950);
+		--color-primary-50-950: var(--color-primary-50);
+		--color-primary-100-900: var(--color-primary-100);
+		--color-primary-950-50: var(--color-primary-950);
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--color-surface-50-950: var(--color-surface-950);
+			--color-surface-100-900: var(--color-surface-900);
+			--color-surface-200-800: var(--color-surface-800);
+			--color-surface-300-700: var(--color-surface-700);
+			--color-surface-950-50: var(--color-surface-50);
+			--color-primary-50-950: var(--color-primary-950);
+			--color-primary-100-900: var(--color-primary-900);
+			--color-primary-950-50: var(--color-primary-50);
+		}
 	}
 	body {
 		background-color: var(--body-background-color);
