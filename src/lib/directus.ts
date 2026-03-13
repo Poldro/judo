@@ -70,10 +70,25 @@ interface Exam {
 	slug: string;
 	name: string;
 	description: string;
+	type: 'dan' | 'allenatore';
+	level: number | null;
 	programs: Program[];
 	katas: ExamKata[];
 	techniques: ExamTechnique[];
 	exams_programs: ExamProgram[];
+}
+
+export interface QuizQuestion {
+	id: string;
+	exam: string;
+	question: string;
+	option_a: string;
+	option_b: string;
+	option_c: string;
+	option_d: string;
+	correct_answer: 'a' | 'b' | 'c' | 'd';
+	explanation: string | null;
+	sort: number;
 }
 
 // ── Navigation hierarchy ──────────────────────────────────────────────────────
@@ -159,6 +174,8 @@ interface Schema {
 	// Navigation hierarchy sub-types
 	technique_sub_categories: TechniqueSubCategory[];
 	technique_categories: TechniqueCategory[];
+	// Quiz
+	quiz_questions: QuizQuestion[];
 }
 
 const directus = createDirectus<Schema>(PUBLIC_DIRECTUS_URL).with(rest());

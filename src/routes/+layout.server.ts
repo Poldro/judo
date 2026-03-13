@@ -18,7 +18,7 @@ export const load: LayoutServerLoad = async ({ setHeaders }) => {
             }]
         })),
         directus.request(readItems('exams', {
-            fields: ['slug', 'name']
+            fields: ['slug', 'name', 'type', 'level']
         })),
         directus.request(readItems('kata', {
             sort: ['sort'],

@@ -23,28 +23,65 @@
 		});
 
 	let title: string;
-	let metaTitle: string;
-	let metadescription: string;
-	let seoProps;
-
 	$: title = data.exams.name;
-
-	$: metaTitle = 'Programma esame tecniche ' + title + ' Judo';
-
-	$: metadescription = 'Programma esame tecniche ' + title + ' Judo Italia';
 
 	$: seoProps = {
 		data,
 		title,
 		slug: $page.url.pathname,
-		metadescription
+		metadescription: 'Programma esame tecniche ' + title + ' Judo Italia'
 	};
 </script>
 
 <Seo {...seoProps} />
 <HeaderPages {title} />
 <PageContainer>
-	<div class="card p-4 max-w-xl w-full border border-surface-300-600-token">
-		<NavigationListNumber {items} />
+	<div class="flex flex-col gap-4 max-w-xl w-full">
+
+		<!-- Programmi ────────────────────────────────────────────── -->
+		<div class="card p-4 border border-surface-300-600-token">
+			<NavigationListNumber {items} />
+		</div>
+
+		<!-- Quiz CTA ─────────────────────────────────────────────── -->
+		<a
+			href="/esami/{data.exams.slug}/quiz"
+			class="quiz-cta group block card border-2 border-dashed border-surface-300-600-token hover:border-primary-400 transition-all duration-200"
+		>
+			<div class="p-5 flex items-center gap-4">
+				<div class="quiz-icon text-3xl shrink-0 transition-transform duration-200 group-hover:scale-110">
+					🎯
+				</div>
+				<div class="flex flex-col leading-tight">
+					<p class="font-bold text-base">Quiz!</p>
+					<p class="text-sm opacity-60">Metti alla prova le tue conoscenze</p>
+				</div>
+				<span class="ml-auto">
+					<span class="badge variant-filled text-xs font-semibold px-3 py-1">
+						Inizia
+					</span>
+				</span>
+			</div>
+		</a>
+
 	</div>
 </PageContainer>
+
+<style>
+	.quiz-cta {
+		background: linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--color-primary-500) 6%, transparent),
+			color-mix(in srgb, var(--color-primary-500) 2%, transparent)
+		);
+	}
+	.quiz-cta:hover {
+		background: linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--color-primary-500) 12%, transparent),
+			color-mix(in srgb, var(--color-primary-500) 5%, transparent)
+		);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 20px color-mix(in srgb, var(--color-primary-500) 20%, transparent);
+	}
+</style>
