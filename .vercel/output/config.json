@@ -1,0 +1,63 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/_app/immutable/.+",
+			"headers": {
+				"cache-control": "public, immutable, max-age=31536000"
+			}
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/?(?:/__data.json)?$",
+			"dest": "/"
+		},
+		{
+			"src": "^/esami/?(?:/__data.json)?$",
+			"dest": "/esami"
+		},
+		{
+			"src": "^/esami/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/esami/[esami]"
+		},
+		{
+			"src": "^/esami/([^/]+?)/kata/?(?:/__data.json)?$",
+			"dest": "/esami/[esami]/kata"
+		},
+		{
+			"src": "^/esami/([^/]+?)/tecniche/?(?:/__data.json)?$",
+			"dest": "/esami/[esami]/tecniche"
+		},
+		{
+			"src": "^/esami/([^/]+?)/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/esami/[esami]/[static]"
+		},
+		{
+			"src": "^/kata/?(?:/__data.json)?$",
+			"dest": "/kata"
+		},
+		{
+			"src": "^/kata/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/kata/[slug]"
+		},
+		{
+			"src": "^/sitemap\\.xml/?(?:/__data.json)?$",
+			"dest": "/sitemap.xml"
+		},
+		{
+			"src": "^/tecniche/?(?:/__data.json)?$",
+			"dest": "/tecniche"
+		},
+		{
+			"src": "^/tecniche/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/tecniche/[slug]"
+		},
+		{
+			"src": "/.*",
+			"dest": "/![-]/catchall"
+		}
+	],
+	"overrides": {}
+}
