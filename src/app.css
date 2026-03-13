@@ -32,12 +32,27 @@
 	--radius-container: 0.75rem;
 }
 
+/* Override crimson surface colors with pure neutral grey */
+[data-theme='crimson'] {
+	--color-surface-50:  oklch(0.96 0 0);
+	--color-surface-100: oklch(0.91 0 0);
+	--color-surface-200: oklch(0.84 0 0);
+	--color-surface-300: oklch(0.72 0 0);
+	--color-surface-400: oklch(0.56 0 0);
+	--color-surface-500: oklch(0.42 0 0);
+	--color-surface-600: oklch(0.34 0 0);
+	--color-surface-700: oklch(0.28 0 0);
+	--color-surface-800: oklch(0.22 0 0);
+	--color-surface-900: oklch(0.18 0 0);
+	--color-surface-950: oklch(0.13 0 0);
+}
+
 /* Base globals */
 @layer base {
 	:root {
-		color-scheme: light dark;
+		color-scheme: light;
 		font-family: 'Work Sans', sans-serif;
-		/* Adaptive color tokens — light mode defaults */
+		/* Force light mode tokens always */
 		--color-surface-50-950: var(--color-surface-50);
 		--color-surface-100-900: var(--color-surface-100);
 		--color-surface-200-800: var(--color-surface-200);
@@ -47,27 +62,9 @@
 		--color-primary-100-900: var(--color-primary-100);
 		--color-primary-950-50: var(--color-primary-950);
 	}
-	@media (prefers-color-scheme: dark) {
-		:root {
-			--color-surface-50-950: var(--color-surface-950);
-			--color-surface-100-900: var(--color-surface-900);
-			--color-surface-200-800: var(--color-surface-800);
-			--color-surface-300-700: var(--color-surface-700);
-			--color-surface-950-50: var(--color-surface-50);
-			--color-primary-50-950: var(--color-primary-950);
-			--color-primary-100-900: var(--color-primary-900);
-			--color-primary-950-50: var(--color-primary-50);
-		}
-	}
 	body {
 		background-color: var(--body-background-color);
 		color: var(--base-font-color);
-	}
-	@media (prefers-color-scheme: dark) {
-		body {
-			background-color: var(--body-background-color-dark);
-			color: var(--base-font-color-dark);
-		}
 	}
 	button:not(:disabled),
 	[role='button']:not(:disabled) {

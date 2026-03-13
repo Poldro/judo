@@ -3,7 +3,7 @@ import { readItem } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params, setHeaders }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	try {
 		const technique = await directus.request(
 			readItem('techniques', params.slug, {
@@ -12,8 +12,6 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 		);
 
 		if (!technique) throw error(404, 'Tecnica non trovata');
-
-		setHeaders({ 'cache-control': 'public, s-maxage=3600, stale-while-revalidate=86400' });
 
 		return { technique };
 	} catch (e: any) {

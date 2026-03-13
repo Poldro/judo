@@ -1,5 +1,6 @@
-import { createDirectus, rest } from '@directus/sdk';
+import { createDirectus, rest, staticToken } from '@directus/sdk';
 import { PUBLIC_DIRECTUS_URL } from '$env/static/public';
+import { DIRECTUS_TOKEN } from '$env/static/private';
 
 // ── Primitive collections ─────────────────────────────────────────────────────
 
@@ -178,6 +179,6 @@ interface Schema {
 	quiz_questions: QuizQuestion[];
 }
 
-const directus = createDirectus<Schema>(PUBLIC_DIRECTUS_URL).with(rest());
+const directus = createDirectus<Schema>(PUBLIC_DIRECTUS_URL).with(staticToken(DIRECTUS_TOKEN)).with(rest());
 
 export default directus;

@@ -2,7 +2,6 @@
 	import '../app.css';
 	import { fly, fade } from 'svelte/transition';
 	import { setContext } from 'svelte';
-	import { page } from '$app/stores';
 
 	import Header from '$lib/components/Header/Header.svelte';
 	import Navigation from '$lib/components/Navigation/Navigation.svelte';
@@ -13,8 +12,6 @@
 	let drawerOpen = $state(false);
 
 	setContext('openDrawer', () => (drawerOpen = true));
-
-	const isHome = $derived($page.url.pathname === '/');
 </script>
 
 <Analytics />
@@ -42,9 +39,7 @@
 
 <!-- App shell -->
 <div class="h-screen flex flex-col overflow-hidden">
-	{#if isHome}
-		<Header handleClick={() => (drawerOpen = true)} />
-	{/if}
+	<Header handleClick={() => (drawerOpen = true)} />
 	<div class="flex flex-1 overflow-hidden">
 		<aside class="hidden lg:block w-64 bg-surface-50-950-token overflow-y-auto border-r border-surface-300-600-token">
 			<Navigation {data} drawerClose={() => {}} />
