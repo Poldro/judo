@@ -1,4 +1,4 @@
-import directus from '$lib/directus';
+import directus from '$lib/server/directus';
 import { readItem, readItems } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';

@@ -62,14 +62,12 @@
 	<div class="max-w-2xl w-full card p-5 lg:p-8 space-y-6">
 		<h3 class="h3 font-semibold">{title}{#if data.technique.it_name} — {data.technique.it_name}{/if}</h3>
 		<div class="prose">{@html $page.data.technique.description}</div>
-		{#if data.technique.ifj_url}
-			<div class="pt-2">
-				<ButtonLink
-					title="International Judo Federation"
-					href={data.technique.ifj_url}
-					blank={true}
-				/>
-			</div>
-		{/if}
 	</div>
+	{#if data.technique.ijf_url}
+		<ButtonLink
+			title="International Judo Federation"
+			href={data.technique.ijf_url}
+			blank={true}
+		/>
+	{/if}
 </PageContainer>

@@ -176,7 +176,7 @@
 
 					<!-- Explanation -->
 					{#if showExplanation && current.explanation}
-						<div class="explanation-card">
+						<div class="explanation-card" class:explanation-correct={selectedAnswer === current.correct_answer}>
 							<span class="text-base">💡</span>
 							<p class="text-sm leading-relaxed">{current.explanation}</p>
 						</div>
@@ -326,9 +326,13 @@
 		align-items: flex-start;
 		padding: 1rem;
 		border-radius: var(--radius-base);
-		background: color-mix(in srgb, var(--color-primary-500) 8%, transparent);
-		border-left: 3px solid var(--color-primary-500);
+		background: color-mix(in srgb, #ef4444 8%, transparent);
+		border-left: 3px solid #ef4444;
 		animation: slide-up 250ms ease both;
+	}
+	.explanation-card.explanation-correct {
+		background: color-mix(in srgb, #22c55e 8%, transparent);
+		border-left-color: #22c55e;
 	}
 
 	/* ── Results ────────────────────────────────────────────── */

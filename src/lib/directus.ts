@@ -1,6 +1,5 @@
-import { createDirectus, rest, staticToken } from '@directus/sdk';
+import { createDirectus, rest } from '@directus/sdk';
 import { PUBLIC_DIRECTUS_URL } from '$env/static/public';
-import { DIRECTUS_TOKEN } from '$env/static/private';
 
 // ── Primitive collections ─────────────────────────────────────────────────────
 
@@ -36,7 +35,7 @@ interface Technique {
 	it_name: string;
 	jpn_name: string;
 	description: string;
-	ifj_url: string;
+	ijf_url: string;
 	sub_category_id: string;
 	category_id: string;
 	videos: TechniqueVideo[];
@@ -154,7 +153,7 @@ export interface ExamProgram {
 
 // ── Directus Schema ───────────────────────────────────────────────────────────
 
-interface Schema {
+export interface Schema {
 	// Main collections
 	techniques: Technique[];
 	techniques_divisions: TechniqueDivision[];
@@ -179,6 +178,6 @@ interface Schema {
 	quiz_questions: QuizQuestion[];
 }
 
-const directus = createDirectus<Schema>(PUBLIC_DIRECTUS_URL).with(staticToken(DIRECTUS_TOKEN)).with(rest());
+const directus = createDirectus<Schema>(PUBLIC_DIRECTUS_URL).with(rest());
 
 export default directus;
