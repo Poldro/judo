@@ -63,6 +63,12 @@
 		background-color: var(--body-background-color);
 		color: var(--base-font-color);
 	}
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: var(--body-background-color-dark);
+			color: var(--base-font-color-dark);
+		}
+	}
 	button:not(:disabled),
 	[role='button']:not(:disabled) {
 		cursor: pointer;
