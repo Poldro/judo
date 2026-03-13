@@ -14,7 +14,7 @@
 
 	setContext('openDrawer', () => (drawerOpen = true));
 
-	$: isHome = $page.url.pathname === '/';
+	const isHome = $derived($page.url.pathname === '/');
 </script>
 
 <Analytics />
