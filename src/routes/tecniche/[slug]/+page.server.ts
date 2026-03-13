@@ -1,12 +1,15 @@
 import directus from '$lib/directus';
 import { readItem } from '@directus/sdk';
-export const load = async ({ params }: { params: { slug: string } }) => {
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const technique = await directus.request(
 		readItem('techniques', params.slug, {
 			fields: ['*', { videos: [{ video_id: ['url_yt', 'name', 'alt'] }] }]
 		})
 	);
-	return {
-		technique
-	};
+
+	setHeaders({ 'cache-control': 'public, s-maxage=3600, stale-while-revalidate=86400' });
+
+	return { technique };
 };

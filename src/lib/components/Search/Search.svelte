@@ -4,6 +4,7 @@
 	interface Technique {
 		slug: string;
 		name: string;
+		jpn_name?: string;
 	}
 	interface SubCategory {
 		name: string;
@@ -24,6 +25,15 @@
 	let query = '';
 	let showResults = false;
 
+	// Strip dashes, spaces, apostrophes and normalize unicode diacritics
+	function normalize(s: string): string {
+		return s
+			.toLowerCase()
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '') // remove diacritics (è→e, ō→o, etc.)
+			.replace(/[-\s'']/g, '');         // remove hyphens, spaces, apostrophes
+	}
+
 	$: allTechniques = data.flatMap((group) =>
 		(group.categories ?? []).flatMap((cat) => [
 			...(cat.techniques ?? []).map((t) => ({ ...t, group: group.name, category: cat.name })),
@@ -39,11 +49,14 @@
 
 	$: results =
 		query.length > 1
-			? allTechniques.filter(
-					(t) =>
-						t.name.toLowerCase().includes(query.toLowerCase()) ||
-						t.category.toLowerCase().includes(query.toLowerCase())
-				)
+			? allTechniques.filter((t) => {
+					const q = normalize(query);
+					return (
+						normalize(t.name).includes(q) ||
+						normalize(t.jpn_name ?? '').includes(q) ||
+						normalize(t.category).includes(q)
+					);
+				})
 			: [];
 
 	function select(slug: string) {
@@ -60,7 +73,7 @@
 		bind:value={query}
 		on:focus={() => (showResults = true)}
 		on:blur={() => setTimeout(() => (showResults = false), 150)}
-		placeholder="Es. seoi-nage, te-waza,..."
+		placeholder="Es. seoi nage, tewaza, osoto..."
 	/>
 	{#if showResults && query.length > 1}
 		<div
@@ -73,7 +86,10 @@
 						on:click={() => select(technique.slug)}
 					>
 						<span class="font-medium">{technique.name}</span>
-						<span class="text-xs opacity-60 ml-1">{technique.category}</span>
+						{#if technique.jpn_name}
+							<span class="text-xs opacity-50 ml-1">{technique.jpn_name}</span>
+						{/if}
+						<span class="text-xs opacity-40 ml-1">· {technique.category}</span>
 					</button>
 				{/each}
 			{:else}
