@@ -38,7 +38,7 @@
 {/if}
 
 <!-- App shell -->
-<div class="h-screen flex flex-col overflow-hidden">
+<div class="h-dvh flex flex-col overflow-hidden">
 	<Header handleClick={() => (drawerOpen = true)} />
 	<div class="flex flex-1 overflow-hidden">
 		<aside class="hidden lg:block w-64 bg-surface-50-950-token overflow-y-auto border-r border-surface-300-600-token">
