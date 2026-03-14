@@ -36,6 +36,7 @@ interface Technique {
 	jpn_name: string;
 	description: string;
 	ijf_url: string;
+	gokyo: number | null;
 	sub_category_id: string;
 	category_id: string;
 	videos: TechniqueVideo[];

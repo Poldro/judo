@@ -60,7 +60,14 @@
 		{/if}
 	</div>
 	<div class="max-w-2xl w-full card p-5 lg:p-8 space-y-6">
-		<h3 class="h3 font-semibold">{title}{#if data.technique.it_name} — {data.technique.it_name}{/if}</h3>
+		<div class="flex items-start justify-between gap-4 flex-wrap">
+			<h3 class="h3 font-semibold">{title}{#if data.technique.it_name} — {data.technique.it_name}{/if}</h3>
+			{#if data.technique.gokyo != null}
+				<span class="badge variant-soft-primary shrink-0 text-sm font-medium">
+					{data.technique.gokyo === 0 ? 'Fuori dal Gokyo' : `Gokyo ${data.technique.gokyo}° gruppo`}
+				</span>
+			{/if}
+		</div>
 		<div class="prose">{@html $page.data.technique.description}</div>
 	</div>
 	{#if data.technique.ijf_url}

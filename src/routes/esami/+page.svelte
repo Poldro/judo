@@ -8,7 +8,7 @@
 	export let data: LayoutServerData;
 
 	$: danExams = data.exams.filter((e: any) => !e.type || e.type === 'dan');
-	$: coachExams = (data.exams.filter((e: any) => e.type === 'allenatore') as any[])
+	$: coachExams = (data.exams.filter((e: any) => e.type === 'allenatore' && (e.level === null || e.level <= 1)) as any[])
 		.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
 
 	const seoProps = {

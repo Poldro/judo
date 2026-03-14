@@ -6,10 +6,12 @@
 	export let data;
 	export let drawerClose;
 
-	$: exams = data.exams.map((i: { name: string; slug: string }) => ({
-		title: i.name,
-		href: `/esami/${i.slug}`
-	}));
+	$: exams = data.exams
+		.filter((i: any) => i.type !== 'allenatore' || (i.level !== null && i.level <= 1))
+		.map((i: { name: string; slug: string }) => ({
+			title: i.name,
+			href: `/esami/${i.slug}`
+		}));
 
 	$: katas = data.katas.map((i: { name: string; slug: string }) => ({
 		title: i.name,
