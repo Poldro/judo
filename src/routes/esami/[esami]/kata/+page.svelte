@@ -38,7 +38,11 @@
 		<div class="card p-4 space-y-6">
 			<p>{description[0].description_exam}</p>
 
-			<NavigationList items={navigationItems} icon />
+			{#if navigationItems.length > 0}
+				<NavigationList items={navigationItems} icon />
+			{:else}
+				<p class="text-sm opacity-60">Al momento non ci sono contenuti, controlla più tardi!</p>
+			{/if}
 		</div>
 	</div>
 </PageContainer>

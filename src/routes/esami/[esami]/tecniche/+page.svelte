@@ -67,7 +67,10 @@
 <PageContainer>
 	<div class="w-full max-w-4xl space-y-6">
 		<p class="text-sm opacity-70">{description[0].description_exam}</p>
-		{#each filteredData as division}
+		{#if filteredData.length === 0}
+		<p class="text-sm opacity-60">Al momento non ci sono contenuti, controlla più tardi!</p>
+	{/if}
+	{#each filteredData as division}
 			<div class="space-y-3">
 				<h2 class="h2">{division.name}</h2>
 				<div class="card border border-surface-300-600-token p-4">

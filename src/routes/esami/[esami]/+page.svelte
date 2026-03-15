@@ -40,7 +40,11 @@
 
 		<!-- Programmi ────────────────────────────────────────────── -->
 		<div class="card p-4 border border-surface-300-600-token">
-			<NavigationListNumber {items} />
+			{#if items.length > 0}
+				<NavigationListNumber {items} />
+			{:else}
+				<p class="text-sm opacity-60 text-center py-2">Al momento non ci sono contenuti, controlla più tardi!</p>
+			{/if}
 		</div>
 
 		<!-- Quiz CTA ─────────────────────────────────────────────── -->
