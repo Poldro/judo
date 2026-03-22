@@ -1,3 +1,5 @@
+export const prerender = true;
+
 import directus from '$lib/server/directus';
 import { readItems } from '@directus/sdk';
 import { PUBLIC_SITE_URL } from '$env/static/public';
