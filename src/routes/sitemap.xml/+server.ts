@@ -42,7 +42,7 @@ ${examProgramUrls.join('\n')}
 		return new Response(sitemap, {
 			headers: {
 				'Content-Type': 'application/xml',
-				'Cache-Control': 'public, max-age=3600'
+				'Cache-Control': 'public, max-age=86400'
 			}
 		});
 	} catch {
