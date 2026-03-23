@@ -48,9 +48,18 @@ ${examProgramUrls.join('\n')}
 			}
 		});
 	} catch {
-		return new Response('Service temporarily unavailable', {
-			status: 503,
-			headers: { 'Retry-After': '3600' }
+		const fallback = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${url(site, '1.0', 'daily', date)}
+${url(`${site}/tecniche`, '0.9', 'weekly', date)}
+${url(`${site}/kata`, '0.9', 'weekly', date)}
+${url(`${site}/esami`, '0.9', 'weekly', date)}
+</urlset>`;
+		return new Response(fallback, {
+			headers: {
+				'Content-Type': 'application/xml',
+				'Cache-Control': 'public, max-age=3600'
+			}
 		});
 	}
 }
