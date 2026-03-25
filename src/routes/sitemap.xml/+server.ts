@@ -40,7 +40,8 @@ ${examProgramUrls.join('\n')}
 		return new Response(sitemap, {
 			headers: {
 				'Content-Type': 'application/xml; charset=utf-8',
-				'Cache-Control': 'public, max-age=86400'
+				'Cache-Control': 'public, max-age=86400',
+				'X-Debug-Counts': `t=${url_techniques.length},k=${url_katas.length},e=${url_exams.length},p=${url_programs.length}`
 			}
 		});
 	} catch {
