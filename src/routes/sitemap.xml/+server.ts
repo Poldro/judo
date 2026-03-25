@@ -12,20 +12,17 @@ export async function GET() {
 
 	try {
 		const [url_techniques, url_katas, url_exams, url_programs] = await Promise.all([
-			directus.request(readItems('techniques', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('kata', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('exams', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('programs_exam', { fields: ['slug', 'date_updated'], limit: -1 }))
+			directus.request(readItems('techniques', { fields: ['slug'], limit: -1 })),
+			directus.request(readItems('kata', { fields: ['slug'], limit: -1 })),
+			directus.request(readItems('exams', { fields: ['slug'], limit: -1 })),
+			directus.request(readItems('programs_exam', { fields: ['slug'], limit: -1 }))
 		]);
 
 		const examProgramUrls: string[] = [];
 		url_exams.forEach((exam) => {
-			const examDate = exam.date_updated?.split('T')[0] ?? today;
-			examProgramUrls.push(url(`${site}/esami/${exam.slug}`, examDate));
+			examProgramUrls.push(url(`${site}/esami/${exam.slug}`, today));
 			url_programs.forEach((program) => {
-				examProgramUrls.push(
-					url(`${site}/esami/${exam.slug}/${program.slug}`, program.date_updated?.split('T')[0] ?? today)
-				);
+				examProgramUrls.push(url(`${site}/esami/${exam.slug}/${program.slug}`, today));
 			});
 		});
 
@@ -35,8 +32,8 @@ ${url(site, today)}
 ${url(`${site}/tecniche`, today)}
 ${url(`${site}/kata`, today)}
 ${url(`${site}/esami`, today)}
-${url_techniques.map((i) => url(`${site}/tecniche/${i.slug}`, i.date_updated?.split('T')[0] ?? today)).join('\n')}
-${url_katas.map((i) => url(`${site}/kata/${i.slug}`, i.date_updated?.split('T')[0] ?? today)).join('\n')}
+${url_techniques.map((i) => url(`${site}/tecniche/${i.slug}`, today)).join('\n')}
+${url_katas.map((i) => url(`${site}/kata/${i.slug}`, today)).join('\n')}
 ${examProgramUrls.join('\n')}
 </urlset>`;
 
