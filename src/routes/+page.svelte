@@ -14,14 +14,32 @@
 		slug: $page.url.pathname,
 		metadescription: data.globals.description
 	};
+
+	$: jsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: data.globals?.siteTitle ?? 'Judo Italia',
+		description: data.globals?.description,
+		url: data.globals?.siteUrl,
+		inLanguage: 'it',
+		author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+	});
 </script>
 
 <Seo {...seoProps} />
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+</svelte:head>
+
 <PageContainer>
-	<div class="max-w-md w-full text-center space-y-1 pt-2">
+	<div class="max-w-md w-full text-center space-y-2 pt-2">
 		<h1 class="text-2xl font-bold uppercase tracking-wide">Judo</h1>
 		<p class="text-sm opacity-55">
 			Riferimento tecnico per esami di cintura nera, tecniche IJF e kata
+		</p>
+		<p class="text-sm opacity-70">
+			Consulta i programmi d'esame DAN e da Allenatore, sfoglia il catalogo completo delle tecniche IJF — nage-waza e katame-waza — e le forme codificate dei kata del Kodokan.
 		</p>
 	</div>
 

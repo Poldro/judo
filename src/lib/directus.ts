@@ -40,6 +40,7 @@ interface Technique {
 	sub_category_id: string;
 	category_id: string;
 	videos: TechniqueVideo[];
+	date_updated: string | null;
 }
 
 export interface Kata {
@@ -53,6 +54,7 @@ export interface Kata {
 	videos: KataVideo[];
 	urls: KataUrl[];
 	techniques: Technique[];
+	date_updated: string | null;
 }
 
 interface Program {
@@ -65,6 +67,7 @@ interface Program {
 	content: string;
 	isDynamic: boolean;
 	urls: ProgramUrl[];
+	date_updated: string | null;
 }
 
 interface Exam {
@@ -77,6 +80,7 @@ interface Exam {
 	katas: ExamKata[];
 	techniques: ExamTechnique[];
 	exams_programs: ExamProgram[];
+	date_updated: string | null;
 }
 
 export interface QuizQuestion {

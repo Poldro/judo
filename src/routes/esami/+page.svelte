@@ -17,13 +17,37 @@
 		slug: $page.url.pathname,
 		metadescription: 'Elenco programmi esami DAN e da Allenatore di Judo Italia'
 	};
+
+	$: jsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		name: 'Esami di graduazione Judo Italia',
+		description: 'Programmi ufficiali degli esami DAN e da Allenatore di Judo Italia',
+		url: `${data.globals?.siteUrl}/esami`,
+		numberOfItems: data.exams.length,
+		itemListElement: data.exams.map((exam: any, i: number) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: exam.name,
+			url: `${data.globals?.siteUrl}/esami/${exam.slug}`
+		}))
+	});
 </script>
 
 <Seo {...seoProps} />
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+</svelte:head>
+
 <HeaderPages title="Esami" />
 
 <PageContainer>
 	<div class="w-full max-w-lg flex flex-col gap-10">
+
+		<p class="text-sm opacity-70">
+			Programmi ufficiali degli esami di graduazione federale: cintura nera (1°, 2° e 3° DAN) e qualifica da Allenatore di Judo Italia.
+		</p>
 
 		<!-- ── Cintura Nera ──────────────────────────────────────────── -->
 		<section class="flex flex-col gap-3">

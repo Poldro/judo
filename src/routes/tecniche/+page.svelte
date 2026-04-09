@@ -86,6 +86,9 @@
 <HeaderPages {title} />
 
 <PageContainer>
+	<p class="text-sm opacity-70 max-w-2xl">
+		Catalogo completo delle tecniche ufficiali IJF: <strong>nage-waza</strong> (tecniche di lancio) e <strong>katame-waza</strong> (tecniche di controllo a terra), con nome italiano e giapponese.
+	</p>
 	<Search data={techniques} />
 
 	<!-- Division tabs -->

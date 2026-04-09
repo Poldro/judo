@@ -31,9 +31,29 @@
 		slug: $page.url.pathname,
 		metadescription: 'Programma esame tecniche ' + title + ' Judo Italia'
 	};
+
+	$: jsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Course',
+		name: title,
+		description: 'Programma d\'esame ' + title + ' — tecniche richieste, kata e prove previste dalla Federazione Judo Italia.',
+		url: `${data.globals?.siteUrl}/esami/${data.exams.slug}`,
+		inLanguage: 'it',
+		provider: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' },
+		hasCourseInstance: items.map((item) => ({
+			'@type': 'CourseInstance',
+			name: item.title,
+			url: `${data.globals?.siteUrl}${item.href}`
+		}))
+	});
 </script>
 
 <Seo {...seoProps} />
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+</svelte:head>
+
 <HeaderPages {title} />
 <PageContainer>
 	<div class="flex flex-col gap-4 max-w-xl w-full">
