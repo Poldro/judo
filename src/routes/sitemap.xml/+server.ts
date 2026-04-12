@@ -30,7 +30,7 @@ export async function GET() {
 
 		const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${url(site)}
+${url(`${site}/`)}
 ${url(`${site}/tecniche`)}
 ${url(`${site}/kata`)}
 ${url(`${site}/esami`)}
@@ -48,7 +48,7 @@ ${examProgramUrls.join('\n')}
 	} catch {
 		const fallback = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${url(site)}
+${url(`${site}/`)}
 ${url(`${site}/tecniche`)}
 ${url(`${site}/kata`)}
 ${url(`${site}/esami`)}
