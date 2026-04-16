@@ -18,26 +18,44 @@
 		return html?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() ?? '';
 	}
 
+	function truncateText(text: string, max = 155): string {
+		if (!text || text.length <= max) return text ?? '';
+		return text.slice(0, text.lastIndexOf(' ', max - 3)) + '...';
+	}
+
 	$: title = data.kata.name + ' ' + data.kata.jpn_name;
-	$: metadescription = stripHtml(data.kata.description);
+	$: metadescription = truncateText(stripHtml(data.kata.description));
 	$: videos = data.kata.videos;
 
 	$: seoProps = {
 		data: data,
 		title,
 		slug: $page.url.pathname,
-		metadescription
+		metadescription,
+		type: 'article'
 	};
 
 	$: jsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
-		'@type': 'Article',
-		headline: `${data.kata.name} - Kata Judo`,
-		name: data.kata.name,
-		description: metadescription,
-		inLanguage: 'it',
-		url: `${data.globals?.siteUrl}${$page.url.pathname}`,
-		author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+		'@graph': [
+			{
+				'@type': 'Article',
+				headline: `${data.kata.name} - Kata Judo`,
+				name: data.kata.name,
+				description: metadescription,
+				inLanguage: 'it',
+				url: `${data.globals?.siteUrl}${$page.url.pathname}`,
+				author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: data.globals?.siteUrl },
+					{ '@type': 'ListItem', position: 2, name: 'Kata', item: `${data.globals?.siteUrl}/kata` },
+					{ '@type': 'ListItem', position: 3, name: data.kata.name, item: `${data.globals?.siteUrl}${$page.url.pathname}` }
+				]
+			}
+		]
 	});
 </script>
 
@@ -63,7 +81,9 @@
 		class="max-w-4xl w-full card p-4 space-y-6 lg:space-y-10 flex flex-col justify-center items-center"
 	>
 		<div class="max-w-xl space-y-6">
-			<h3 class="h3 font-semibold">{title} - {data.kata.traduction_name}</h3>
+			{#if data.kata.traduction_name}
+				<h2 class="h3 font-semibold">{data.kata.traduction_name}</h2>
+			{/if}
 
 			<div class="prose">{@html $page.data.kata.content}</div>
 			<div class="w-full flex justify-center">

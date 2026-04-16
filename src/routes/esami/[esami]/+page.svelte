@@ -29,7 +29,7 @@
 		data,
 		title,
 		slug: $page.url.pathname,
-		metadescription: 'Programma esame tecniche ' + title + ' Judo Italia'
+		metadescription: `Programma ufficiale dell'esame ${title}: tecniche richieste, kata e prove previste dalla Federazione Judo Italia.`
 	};
 
 	$: jsonLd = JSON.stringify({

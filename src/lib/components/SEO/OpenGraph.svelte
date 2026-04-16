@@ -8,12 +8,13 @@
 	export let siteTitle: string;
 	export let siteUrl: string;
 	export let url: string;
+	export let type: string = 'website';
 
 	$: absoluteImageUrl = image?.url?.startsWith('http') ? image.url : `${siteUrl}${image?.url}`;
 </script>
 
 <svelte:head>
-	<meta property="og:type" content="website" />
+	<meta property="og:type" content={type} />
 	<meta property="og:site_name" content={siteTitle} />
 	<meta property="og:locale" content={siteLanguage} />
 	<meta property="og:url" content={url} />

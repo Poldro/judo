@@ -11,21 +11,19 @@ export async function GET() {
 	const site = PUBLIC_SITE_URL;
 
 	try {
-		const [url_techniques, url_katas, url_exams, url_programs] = await Promise.all([
+		const [url_techniques, url_katas, url_exams] = await Promise.all([
 			directus.request(readItems('techniques', { fields: ['slug', 'date_updated'], limit: -1 })),
 			directus.request(readItems('kata', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('exams', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('programs_exam', { fields: ['slug', 'date_updated'], limit: -1 }))
+			directus.request(readItems('exams', { fields: ['slug', 'date_updated'], limit: -1 }))
 		]);
 
 		const examProgramUrls: string[] = [];
-		url_exams.forEach((exam) => {
+		url_exams.forEach((exam: any) => {
 			examProgramUrls.push(url(`${site}/esami/${exam.slug}`, exam.date_updated));
-			url_programs.forEach((program) => {
-				examProgramUrls.push(
-					url(`${site}/esami/${exam.slug}/${program.slug}`, program.date_updated)
-				);
-			});
+			examProgramUrls.push(url(`${site}/esami/${exam.slug}/tecniche`));
+			examProgramUrls.push(url(`${site}/esami/${exam.slug}/kata`));
+			// Le pagine [static] (storia, arbitraggio, ecc.) hanno contenuto identico
+			// per tutti gli esami — escluderle evita duplicate content in sitemap
 		});
 
 		const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

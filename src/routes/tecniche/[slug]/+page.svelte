@@ -18,26 +18,44 @@
 		return html?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() ?? '';
 	}
 
+	function truncateText(text: string, max = 155): string {
+		if (!text || text.length <= max) return text ?? '';
+		return text.slice(0, text.lastIndexOf(' ', max - 3)) + '...';
+	}
+
 	$: title = data.technique.name + ' ' + data.technique.jpn_name;
-	$: metadescription = stripHtml(data.technique.description);
+	$: metadescription = truncateText(stripHtml(data.technique.description));
 	$: videos = data.technique.videos ?? [];
 
 	$: seoProps = {
 		data,
 		title,
 		slug: $page.url.pathname,
-		metadescription
+		metadescription,
+		type: 'article'
 	};
 
 	$: jsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
-		'@type': 'Article',
-		headline: `${data.technique.name} (${data.technique.jpn_name}) - Tecnica Judo`,
-		name: data.technique.name,
-		description: metadescription,
-		inLanguage: 'it',
-		url: `${data.globals?.siteUrl}${$page.url.pathname}`,
-		author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+		'@graph': [
+			{
+				'@type': 'Article',
+				headline: `${data.technique.name} (${data.technique.jpn_name}) - Tecnica Judo`,
+				name: data.technique.name,
+				description: metadescription,
+				inLanguage: 'it',
+				url: `${data.globals?.siteUrl}${$page.url.pathname}`,
+				author: { '@type': 'Organization', name: data.globals?.siteTitle ?? 'Judo Italia' }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: data.globals?.siteUrl },
+					{ '@type': 'ListItem', position: 2, name: 'Tecniche', item: `${data.globals?.siteUrl}/tecniche` },
+					{ '@type': 'ListItem', position: 3, name: data.technique.name, item: `${data.globals?.siteUrl}${$page.url.pathname}` }
+				]
+			}
+		]
 	});
 </script>
 
@@ -61,7 +79,9 @@
 	</div>
 	<div class="max-w-2xl w-full card p-5 lg:p-8 space-y-6">
 		<div class="flex items-start justify-between gap-4 flex-wrap">
-			<h3 class="h3 font-semibold">{title}{#if data.technique.it_name} — {data.technique.it_name}{/if}</h3>
+			{#if data.technique.it_name}
+				<h2 class="h3 font-semibold">{data.technique.it_name}</h2>
+			{/if}
 			{#if data.technique.gokyo != null}
 				<span class="badge variant-soft-primary shrink-0 text-sm font-medium">
 					{data.technique.gokyo === 0 ? 'Fuori dal Gokyo' : `Gokyo ${data.technique.gokyo}° gruppo`}

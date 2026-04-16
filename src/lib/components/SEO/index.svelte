@@ -10,6 +10,7 @@
 	export let metadescription: string;
 	export let slug: string;
 	export let title: string;
+	export let type: string = 'website';
 
 	const defaultAlt = 'Mezzo busto di Jigoro Kano, fondatore del Judo.';
 
@@ -28,7 +29,8 @@
 		pageTitle: title,
 		siteTitle,
 		siteUrl,
-		url: `${siteUrl}${slug}`
+		url: `${siteUrl}${slug}`,
+		type
 	};
 
 	const { url, alt } = featuredImage;

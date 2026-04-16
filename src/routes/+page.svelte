@@ -34,7 +34,7 @@
 
 <PageContainer>
 	<div class="max-w-md w-full text-center space-y-2 pt-2">
-		<h1 class="text-2xl font-bold uppercase tracking-wide">Judo</h1>
+		<h1 class="text-2xl font-bold uppercase tracking-wide">Judo Italia</h1>
 		<p class="text-sm opacity-55">
 			Riferimento tecnico per esami di cintura nera, tecniche IJF e kata
 		</p>

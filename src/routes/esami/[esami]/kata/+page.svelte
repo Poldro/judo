@@ -17,8 +17,11 @@
 
 	let title = 'Kata';
 	let metaTitle = 'Programma esame kata Judo';
-	let metadescription = 'Programma kata Judo Italia';
-	const seoProps = {
+	$: currentExam = data.exams?.find((e: any) => e.slug === $page.params.esami);
+	$: metadescription = currentExam
+		? `Kata richiesti per l'esame ${currentExam.name}: programma ufficiale Judo Italia.`
+		: 'Programma kata Judo Italia';
+	$: seoProps = {
 		data,
 		title: metaTitle,
 		slug: $page.url.pathname,

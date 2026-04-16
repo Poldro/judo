@@ -47,8 +47,11 @@
 
 	let title = 'Tecniche';
 	let metaTitle = 'Programma esame tecniche Judo';
-	let metadescription = 'Programma esame tecniche Judo Italia';
-	const seoProps = {
+	$: currentExam = data.exams?.find((e: any) => e.slug === $page.params.esami);
+	$: metadescription = currentExam
+		? `Tecniche richieste per l'esame ${currentExam.name}: programma ufficiale Judo Italia.`
+		: 'Programma esame tecniche Judo Italia';
+	$: seoProps = {
 		data,
 		title: metaTitle,
 		slug: $page.url.pathname,
