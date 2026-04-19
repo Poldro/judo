@@ -20,16 +20,17 @@ export async function GET() {
 		const [url_techniques, url_katas, url_exams] = await Promise.all([
 			directus.request(readItems('techniques', { fields: ['slug', 'date_updated'], limit: -1 })),
 			directus.request(readItems('kata', { fields: ['slug', 'date_updated'], limit: -1 })),
-			directus.request(readItems('exams', { fields: ['slug', 'date_updated'], limit: -1 }))
+			directus.request(readItems('exams', { fields: ['slug', 'date_updated', 'type'], limit: -1 }))
 		]);
 
 		const latestTechnique = maxDate(url_techniques.map((i) => i.date_updated));
 		const latestKata = maxDate(url_katas.map((i) => i.date_updated));
-		const latestExam = maxDate(url_exams.map((i) => i.date_updated));
+		const danExams = url_exams.filter((e) => (e as { type?: string }).type !== 'allenatore');
+		const latestExam = maxDate(danExams.map((i) => i.date_updated));
 		const latestAll = maxDate([latestTechnique, latestKata, latestExam]);
 
 		const examProgramUrls: string[] = [];
-		url_exams.forEach((exam: { slug: string; date_updated: string | null }) => {
+		danExams.forEach((exam: { slug: string; date_updated: string | null }) => {
 			examProgramUrls.push(url(`${site}/esami/${exam.slug}`, exam.date_updated));
 			examProgramUrls.push(url(`${site}/esami/${exam.slug}/tecniche`, exam.date_updated));
 			examProgramUrls.push(url(`${site}/esami/${exam.slug}/kata`, exam.date_updated));
@@ -39,6 +40,7 @@ export async function GET() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${url(`${site}/`, latestAll)}
 ${url(`${site}/tecniche`, latestTechnique)}
+${url(`${site}/tecniche/quiz`, '2026-04-19')}
 ${url(`${site}/kata`, latestKata)}
 ${url(`${site}/esami`, latestExam)}
 ${url_techniques.map((i) => url(`${site}/tecniche/${i.slug}`, i.date_updated)).join('\n')}

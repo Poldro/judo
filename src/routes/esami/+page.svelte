@@ -8,8 +8,6 @@
 	export let data: LayoutServerData;
 
 	$: danExams = data.exams.filter((e: any) => !e.type || e.type === 'dan');
-	$: coachExams = (data.exams.filter((e: any) => e.type === 'allenatore' && (e.level === null || e.level <= 1)) as any[])
-		.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
 
 	const seoProps = {
 		data,
@@ -24,8 +22,8 @@
 		name: 'Esami di graduazione Judo Italia',
 		description: 'Programmi ufficiali degli esami DAN e da Allenatore di Judo Italia',
 		url: `${data.globals?.siteUrl}/esami`,
-		numberOfItems: data.exams.length,
-		itemListElement: data.exams.map((exam: any, i: number) => ({
+		numberOfItems: danExams.length,
+		itemListElement: danExams.map((exam: any, i: number) => ({
 			'@type': 'ListItem',
 			position: i + 1,
 			name: exam.name,
@@ -46,7 +44,7 @@
 	<div class="w-full max-w-lg flex flex-col gap-10">
 
 		<p class="text-sm opacity-70">
-			Programmi ufficiali degli esami di graduazione federale: cintura nera (1°, 2° e 3° DAN) e qualifica da Allenatore di Judo Italia.
+			Programmi ufficiali degli esami di graduazione federale: cintura nera 1°, 2° e 3° DAN.
 		</p>
 
 		<!-- ── Cintura Nera ──────────────────────────────────────────── -->
@@ -73,36 +71,6 @@
 				target="_blank"
 				href="./J_Esami Regionali di Graduazione 2023.pdf"
 			>📄 Programmi ufficiali (PDF)</a>
-		</section>
-
-		<!-- ── Esami da Allenatore ───────────────────────────────────── -->
-		<section class="flex flex-col gap-3">
-			<div class="flex items-center gap-2 mb-1">
-				<span class="text-2xl">📋</span>
-				<h2 class="text-lg font-semibold">Esami da Allenatore</h2>
-			</div>
-
-			{#if coachExams.length === 0}
-				<p class="text-sm opacity-50 px-1">Nessun programma disponibile.</p>
-			{:else}
-				{#each coachExams as { name, slug, level } (slug)}
-					<a class="block card card-hover border border-surface-300-600-token" href="esami/{slug}">
-						<div class="p-4 flex items-center gap-4">
-							<span
-								class="badge font-bold w-10 h-10 rounded-full shrink-0 text-base"
-								style="background:color-mix(in srgb, var(--color-warning-500, #f59e0b) 15%, transparent); color: var(--color-warning-700, #b45309);"
-							>
-								{level}°
-							</span>
-							<div class="flex flex-col leading-tight">
-								<p class="font-semibold">{name}</p>
-								<p class="text-xs opacity-50">Esame tecnico federale</p>
-							</div>
-							<span class="ml-auto opacity-30 text-lg">›</span>
-						</div>
-					</a>
-				{/each}
-			{/if}
 		</section>
 
 	</div>

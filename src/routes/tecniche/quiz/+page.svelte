@@ -16,8 +16,10 @@
 	let showExplanation = false;
 	let animating = false;
 
+	const QUIZ_SIZE = 20;
+
 	onMount(() => {
-		questions = [...data.questions].sort(() => Math.random() - 0.5);
+		questions = [...data.questions].sort(() => Math.random() - 0.5).slice(0, QUIZ_SIZE);
 	});
 
 	$: current = questions[currentIndex];
@@ -95,7 +97,7 @@
 	}
 
 	function restart() {
-		questions = [...data.questions].sort(() => Math.random() - 0.5);
+		questions = [...data.questions].sort(() => Math.random() - 0.5).slice(0, QUIZ_SIZE);
 		score = 0;
 		currentIndex = 0;
 		selectedAnswer = null;
